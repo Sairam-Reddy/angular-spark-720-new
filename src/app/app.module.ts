@@ -5,11 +5,9 @@ import "@progress/kendo-ui";
 
 import { AppComponent } from "./app.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { DraftWorkflowModule } from "../common/workflow/draft/draft-worklfow.module";
+import { DraftWorkflowModule } from "../common/workflow/draft/draft-workflow.module";
 import { ViewWorkflowModule } from "../common/workflow/create/view-workflow.module";
 import { environment } from './environment';
-import { WorkflowService } from "../common/workflow/services/workflow.service";
-
 
 @NgModule({
   imports: [
