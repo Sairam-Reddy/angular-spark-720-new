@@ -2,11 +2,12 @@ import { Injectable } from "@angular/core";
 import * as firebase from "firebase/app";
 
 import { Observable } from "rxjs";
+import { map } from 'rxjs/operators';
 import {
   AngularFirestore,
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
-
+import "rxjs/add/operator/map";
 import { User } from "../models/user";
 import { Workflow } from "../models/workflow";
 
@@ -16,24 +17,13 @@ export class WorkflowService {
   public workflowCollection: AngularFirestoreCollection<Workflow>;
   public users: Observable<User[]>;
   public workflows: Observable<Workflow[]>;
+
   constructor(public afs: AngularFirestore) {
-    this.usersCollection = this.afs.collection("users");
-    this.workflowCollection = this.afs.collection("workflows");
-    this.users = this.usersCollection.snapshotChanges().map(changes => {
-      return changes.map(a => {
-        const data = a.payload.doc.data() as User;
-        // data.id = a.payload.doc.id;
-        return data;
-      });
-    });
-    this.workflowCollection = this.afs.collection("workflows");
-    this.workflows = this.workflowCollection.snapshotChanges().map(changes => {
-      return changes.map(a => {
-        const data = a.payload.doc.data() as Workflow;
-        // data.id = a.payload.doc.id;
-        return data;
-      });
-    });
+    // this.usersCollection = this.afs.collection("users");
+    // this.workflowCollection = this.afs.collection("workflows");
+
+    // this.users = this.afs.collection("users").valueChanges();
+    // this.workflows = this.afs.collection("workflows").valueChanges();
   }
 
   getUsers() {
