@@ -10,7 +10,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from "@angular/material/button";
 import {MatDividerModule} from '@angular/material/divider';
-import { DraftWorkflowModule } from "../draft/draft-worklfow.module";
+import { DraftWorkflowModule } from "../draft/draft-workflow.module";
 import { ViewWorkflowComponent } from "./view-workflow.component";
 
 @NgModule({
