@@ -140,4 +140,9 @@ export class DraftWorkflowComponent implements AfterViewInit {
       });
     });
   }
+
+  reset() {
+     var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+     diagram.clear();
+  }
 }
