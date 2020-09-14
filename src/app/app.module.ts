@@ -20,9 +20,7 @@ import { WorkflowService } from "../common/workflow/services/workflow.service";
     FormsModule,
     MatToolbarModule,
     ViewWorkflowModule,
-    DraftWorkflowModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    DraftWorkflowModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
