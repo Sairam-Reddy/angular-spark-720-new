@@ -147,9 +147,17 @@ export class UpdateWorkflowComponent implements AfterViewInit {
         visual: visualTemplate
       },
       connectionDefaults: {
-        stroke: {
-          color: "#979797",
-          width: 2
+        endCap: {
+          type: "ArrowEnd",
+          fill: {
+            color: "#222222"
+          }
+        },
+        hover: {
+          stroke: {
+            color: "#02DA10",
+            fill: "#02DA10"
+          }
         }
       }
     });
