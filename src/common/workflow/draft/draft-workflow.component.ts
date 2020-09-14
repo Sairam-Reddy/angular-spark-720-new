@@ -47,31 +47,35 @@ export class DraftWorkflowComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     kendo.jQuery(function() {
+      // var diagram = kendo
+      //   .jQuery("#diagram")
+      //   .kendoDiagram({
+      //     dataSource: {
+      //       data: [
+      //         {
+      //           items: [{}, {}]
+      //         }
+      //       ],
+      //       schema: {
+      //         model: {
+      //           children: "items"
+      //         }
+      //       }
+      //     },
+      //     shapeDefaults: {
+      //       width: 120,
+      //       height: 120,
+      //       fill: "#8ebc00"
+      //     },
+      //     layout: {
+      //       type: "tree"
+      //     }
+      //   })
+      //   .getKendoDiagram();
+
       var diagram = kendo
         .jQuery("#diagram")
-        .kendoDiagram({
-          dataSource: {
-            data: [
-              {
-                items: [{}, {}]
-              }
-            ],
-            schema: {
-              model: {
-                children: "items"
-              }
-            }
-          },
-          shapeDefaults: {
-            width: 120,
-            height: 120,
-            fill: "#8ebc00"
-          },
-          layout: {
-            type: "tree"
-          }
-        })
-        .getKendoDiagram();
+        .kendoDiagram().getKendoDiagram();
 
       // kendo
       //   .jQuery("#shapesPanelBar")
