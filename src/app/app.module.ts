@@ -14,6 +14,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { UpdateWorkflowModule } from "../common/workflow/update/update-workflow.module";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     MatToolbarModule,
     ViewWorkflowModule,
     DraftWorkflowModule,
+    UpdateWorkflowModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule
   ],
