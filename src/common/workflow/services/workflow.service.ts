@@ -45,37 +45,37 @@ export class WorkflowService {
     console.log("added");
   }
 
-  addWorkflow() {
-    this.workflowCollection.add(<Workflow>{
-      name: "Sample Workflow",
-      objecttype: { name: "" },
-      createdBy: "",
-      description: "",
-      steps: [
-        {
-          acceptStep: "",
-          completionCriteria: "",
-          id: "",
-          name: "",
-          needsClaim: false,
-          recipients: [],
-          rejectStep: "",
-          status: "",
-          stepDefination: "",
-          completedDate: undefined,
-          completedBy: {
-            disciplines: [{ name: "" }],
-            email: "ramya.athelli@hexagon.com",
-            name: "Tom",
-            organization: { name: "" },
-            password: "1",
-            project: { name: "", disciplines: undefined, status: "" },
-            roles: [{ name: "", users: [undefined] }],
-            id: ""
-          },
-          targetDate: undefined
-        }
-      ]
-    });
-  }
+  // addWorkflow() {
+  //   this.workflowCollection.add(<Workflow>{
+  //     name: "Sample Workflow",
+  //     objecttype: { name: "" },
+  //     createdBy: "",
+  //     description: "",
+  //     steps: [
+  //       {
+  //         acceptStep: "",
+  //         completionCriteria: "",
+  //         id: "",
+  //         name: "",
+  //         needsClaim: false,
+  //         recipients: [],
+  //         rejectStep: "",
+  //         status: "",
+  //         stepDefination: "",
+  //         completedDate: undefined,
+  //         completedBy: {
+  //           disciplines: [{ name: "" }],
+  //           email: "ramya.athelli@hexagon.com",
+  //           name: "Tom",
+  //           organization: { name: "" },
+  //           password: "1",
+  //           project: { name: "", disciplines: undefined, status: "" },
+  //           roles: [{ name: "", users: [undefined] }],
+  //           id: ""
+  //         },
+  //         targetDate: undefined
+  //       }
+  //     ]
+  //   });
+  // }
 }
