@@ -1,4 +1,5 @@
-import { Component, AfterViewInit } from "@angular/core";
+import { Component, AfterViewInit, OnInit } from "@angular/core";
+import { WorkflowService } from "../services/workflow.service";
 
 declare var kendo: any;
 
@@ -8,7 +9,18 @@ declare var kendo: any;
   templateUrl: "view-workflow.component.html",
   styleUrls: ["view-workflow.component.css"]
 })
-export class ViewWorkflowComponent implements AfterViewInit {
+export class ViewWorkflowComponent implements AfterViewInit, OnInit {
+  constructor(private worflowService: WorkflowService) {}
+
+  ngOnInit() {
+    this.worflowService.getUsers().subscribe(items => {
+      console.log(items);
+    });
+    this.worflowService.getWorkflows().subscribe(items => {
+      console.log(items);
+    });
+  }
+
   ngAfterViewInit() {
     kendo.jQuery(function() {
       var diagram = kendo

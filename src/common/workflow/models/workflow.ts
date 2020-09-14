@@ -1,4 +1,4 @@
-import { ObjectType } from "./object-types";
+import { ObjectType } from "./object-type";
 import { WorkflowStep } from "./workflow-step";
 
 export interface Workflow {
