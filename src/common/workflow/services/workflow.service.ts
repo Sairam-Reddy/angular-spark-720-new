@@ -12,7 +12,7 @@ import { WorkflowStep } from "./models/workflow-step";
 
 @Injectable()
 export class WorkflowService {
-  public usersCollection: AngularFirestoreCollection<User>;
+  public usersCollection: AngularFireS<User>;
   public workflowCollection: AngularFirestoreCollection<Workflow>;
   public users: Observable<User[]>;
   public workflows: Observable<Workflow[]>;
