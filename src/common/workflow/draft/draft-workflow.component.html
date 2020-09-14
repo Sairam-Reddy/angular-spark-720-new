@@ -10,10 +10,10 @@
 		<button mat-raised-button>
        <mat-icon [svgIcon]="'save'" class="toolbar-icon" aria-hidden="false"></mat-icon>
       Save</button>
-		<button mat-raised-button>
+		<button mat-raised-button (click)="undo()">
        <mat-icon [svgIcon]="'undo'" class="toolbar-icon" aria-hidden="false"></mat-icon>
       Undo</button>
-		<button mat-raised-button>
+		<button mat-raised-button (click)="redo()">
        <mat-icon [svgIcon]="'redo'" class="toolbar-icon" aria-hidden="false"></mat-icon>
       Redo</button>
 		<button mat-raised-button (click)="exportAsPDF()">Export as PDF</button>

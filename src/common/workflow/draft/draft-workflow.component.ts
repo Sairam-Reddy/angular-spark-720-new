@@ -22,13 +22,13 @@ export class DraftWorkflowComponent implements AfterViewInit {
     iconRegistry.addSvgIcon(
       "open",
       sanitizer.bypassSecurityTrustResourceUrl(
-       "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/open.svg"
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/open.svg"
       )
     );
     iconRegistry.addSvgIcon(
       "save",
       sanitizer.bypassSecurityTrustResourceUrl(
-         "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/save.svg"
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/save.svg"
       )
     );
     iconRegistry.addSvgIcon(
@@ -142,7 +142,17 @@ export class DraftWorkflowComponent implements AfterViewInit {
   }
 
   reset() {
-     var diagram = kendo.jQuery("#diagram").getKendoDiagram();
-     diagram.clear();
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.clear();
+  }
+
+  undo() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.undo();
+  }
+
+  redo() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.redo();
   }
 }
