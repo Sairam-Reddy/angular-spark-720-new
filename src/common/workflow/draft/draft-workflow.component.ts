@@ -78,56 +78,56 @@ export class DraftWorkflowComponent implements AfterViewInit {
         .kendoDiagram()
         .getKendoDiagram();
 
-      var visualTemplate = function(options) {
-        var dataviz = kendo.dataviz,
-          dataItem = options.dataItem;
+      // var visualTemplate = function(options) {
+      //   var dataviz = kendo.dataviz,
+      //     dataItem = options.dataItem;
 
-        var g = new dataviz.diagram.Group({
-          autoSize: true
-        });
+      //   var g = new dataviz.diagram.Group({
+      //     autoSize: true
+      //   });
 
-        var r = new dataviz.diagram.Circle({
-          width: 100,
-          height: 60,
-          background: "LimeGreen"
-        });
+      //   var r = new dataviz.diagram.Circle({
+      //     width: 100,
+      //     height: 60,
+      //     background: "LimeGreen"
+      //   });
 
-        g.append(r);
+      //   g.append(r);
 
-        var fn = new dataviz.diagram.TextBlock({
-          text: dataItem.name,
-          color: "#ffffff",
-          fontSize: 16,
-          x: 30,
-          y: 30
-        });
+      //   var fn = new dataviz.diagram.TextBlock({
+      //     text: dataItem.name,
+      //     color: "#ffffff",
+      //     fontSize: 16,
+      //     x: 30,
+      //     y: 30
+      //   });
 
-        g.append(fn);
-        return g;
-      };
+      //   g.append(fn);
+      //   return g;
+      // };
 
-      var diagram =  kendo
-        .jQuery("#diagram")
-        .kendoDiagram({
-          dataSource: [
-            {
-              name: "Telerik",
-              items: [
-                {
-                  name: "Kendo"
-                },
-                {
-                  name: "Icenium"
-                }
-              ]
-            }
-          ],
-          shapeDefaults: {
-            visual: visualTemplate
-          }
-        })
-        .data("kendoDiagram");
-      diagram.layout();
+      // var diagram =  kendo
+      //   .jQuery("#diagram")
+      //   .kendoDiagram({
+      //     dataSource: [
+      //       {
+      //         name: "Telerik",
+      //         items: [
+      //           {
+      //             name: "Kendo"
+      //           },
+      //           {
+      //             name: "Icenium"
+      //           }
+      //         ]
+      //       }
+      //     ],
+      //     shapeDefaults: {
+      //       visual: visualTemplate
+      //     }
+      //   })
+      //   .data("kendoDiagram");
+      // diagram.layout();
 
       // kendo
       //   .jQuery("#shapesPanelBar")
