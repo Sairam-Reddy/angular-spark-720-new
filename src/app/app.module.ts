@@ -9,6 +9,12 @@ import { DraftWorkflowModule } from "../common/workflow/draft/draft-workflow.mod
 import { ViewWorkflowModule } from "../common/workflow/view/view-workflow.module";
 import { environment } from './environment';
 
+// 1. Import the libs you need
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 @NgModule({
   imports: [
     BrowserModule,
