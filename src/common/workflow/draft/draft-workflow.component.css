@@ -1,0 +1,80 @@
+
+
+
+  
+ .container {
+   display: flex;
+  width: 800px;
+  height: 800px;
+ }
+
+ .shape-items {
+  display: flex;  
+  flex-direction: column;
+}
+
+.shape-item
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
+
+.shape-item__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-toolbar {
+  height: 50px;
+}
+
+.toolbar-icon {
+  width: 16px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+ 
+ 
+ /* #shapesPanelBar .k-panel .k-state-hover,
+      #shapesPanelBar .k-panel .k-state-selected
+      {
+        color: inherit;
+        background: #fff;
+      }
+
+      #shapesPanelBar .k-panel .k-item
+      {
+        display: inline-block;
+        width: 50%;
+      }
+
+
+      .shapeItem
+      {
+        margin-top: 10px;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        background-image: url("https://demos.telerik.com/kendo-ui/content/integration/diagram/images/diagram-toolbox.png");
+        background-size: auto 100%;
+      }
+
+      #shapesPanelBar span
+      {
+        text-align: center;
+        display: block;
+      } */

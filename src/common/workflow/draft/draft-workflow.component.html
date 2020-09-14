@@ -1,0 +1,67 @@
+<mat-toolbar class="option-toolbar">
+	<div class="example-button-row">
+		<button mat-raised-button >
+     <mat-icon [svgIcon]="'new'" class="toolbar-icon" aria-hidden="false"></mat-icon>
+      New
+      </button>
+		<button mat-raised-button>
+       <mat-icon [svgIcon]="'open'" class="toolbar-icon" aria-hidden="false"></mat-icon>
+      Open</button>
+		<button mat-raised-button>
+       <mat-icon [svgIcon]="'save'" class="toolbar-icon" aria-hidden="false"></mat-icon>
+      Save</button>
+		<button mat-raised-button>
+       <mat-icon [svgIcon]="'undo'" class="toolbar-icon" aria-hidden="false"></mat-icon>
+      Undo</button>
+		<button mat-raised-button>
+       <mat-icon [svgIcon]="'redo'" class="toolbar-icon" aria-hidden="false"></mat-icon>
+      Redo</button>
+		<button mat-raised-button (click)="exportAsPDF()">Export as PDF</button>
+		<button mat-raised-button (click)="exportAsImage()">Export as Image</button>
+	</div>
+</mat-toolbar>
+
+
+
+<mat-drawer-container class="container">
+	<mat-drawer mode="side" opened>
+		<mat-toolbar>
+			<span>Toobar</span>
+			<mat-divider></mat-divider>
+		</mat-toolbar>
+		<mat-accordion>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Workflow Steps
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="shape-items" id="shapesPanelBar">
+					<div class="shape-item" data-shape='{"width":120,"height":120,"type":"circle"}'
+						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/circle.png');">
+						<div class="shape-item__label">Start</div>
+					</div>
+					<div class="shape-item"
+						data-shape='{"width":120,"height":120,"type":"rectangle", "textData": Start}'
+						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/rectangle.png');">
+						<div class="shape-item__label">Work</div>
+					</div>
+					<div class="shape-item" data-shape='{"width":120,"height":120,"path":"M 50 0 100 50 50 100 0 50 Z"}'
+						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/rhombus.png');">
+						<div class="shape-item__label">Decision</div>
+					</div>
+				</div>
+				<button mat-button [matMenuTriggerFor]="advancedSteps">Advanced Steps</button>
+				<mat-menu #advancedSteps="matMenu">
+					<button mat-menu-item>Email</button>
+					<button mat-menu-item>Convert PDF</button>
+				</mat-menu>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</mat-drawer>
+
+	<mat-drawer-content class="content">
+		<div id="diagram"></div>
+	</mat-drawer-content>
+
+</mat-drawer-container>
