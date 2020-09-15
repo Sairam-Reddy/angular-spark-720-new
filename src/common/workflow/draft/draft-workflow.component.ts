@@ -106,8 +106,10 @@ export class DraftWorkflowComponent implements AfterViewInit {
             var position = diagram.documentToModel({ x: e.pageX, y: e.pageY });
             var targetShape = shapeByPosition(position);
 
-            var item = e.draggable.hint.data("shape");
-            var newShape = diagram.addShape(item);
+            var options = e.draggable.hint.data("shape");
+
+            var shape = createShape(options)
+            var newShape = diagram.addShape(shape);
             // diagram.connect(targetShape, newShape);
             diagram.layout(diagram.options.layout);
           }
@@ -136,7 +138,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
           path: options.path || undefined,
           content: {
             text: options.textData || undefined,
-            color: options.textData.length > 15 ? "transparent" : "#fff"
+            color: "#fff"
           },
           fill: options.fillColor || "#0088CC"
         };
@@ -146,7 +148,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
         return shape;
       }
 
-      
+
     });
   }
 
