@@ -14,7 +14,9 @@ import { WorkflowStep } from "../models/workflow-step";
 
 @Injectable()
 export class WorkflowToDiagramConverterService {
-  public getDiagramSource(workflow: Workflow) {
+  constructor(public afs: AngularFirestore) {}
+  
+  getDiagramSource(workflow: Workflow) {
     var data = [];
     var connectionsData = [];
 

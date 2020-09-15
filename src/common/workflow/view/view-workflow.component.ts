@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit } from "@angular/core";
 import { WorkflowService } from "../services/workflow.service";
 import { Workflow } from "../models/workflow";
-
+import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
 declare var kendo: any;
 
 /** @title Implicit main content with two sidenavs */
@@ -11,7 +11,7 @@ declare var kendo: any;
   styleUrls: ["view-workflow.component.css"]
 })
 export class ViewWorkflowComponent implements AfterViewInit, OnInit {
-  constructor(private worflowService: WorkflowService) {}
+  constructor(private worflowService: WorkflowService, private workflowToDiagramConverter: WorkflowToDiagramConverterService) {}
 
   public workflow: Workflow;
 
@@ -68,34 +68,36 @@ export class ViewWorkflowComponent implements AfterViewInit, OnInit {
         return shape;
       }
 
-      var data = [
-        {
-          id: 1,
-          textData: "Start",
-          type: "circle",
-          positionX: 424.5,
-          positionY: 20,
-          fillColor: "green",
-          width: 50
-        },
-        {
-          id: 2,
-          textData: "State 1",
-          type: "rectangle",
-          positionX: 400,
-          positionY: 125,
-          height: 100,
-          width: 100,
-          path: "M 50 0 100 50 50 100 0 50 Z"
-        },
-        {
-          id: 3,
-          textData: "Completed?",
-          type: "circle",
-          positionX: 399.5,
-          positionY: 290
-        }
-      ];
+      // var data = [
+      //   {
+      //     id: 1,
+      //     textData: "Start",
+      //     type: "circle",
+      //     positionX: 424.5,
+      //     positionY: 20,
+      //     fillColor: "green",
+      //     width: 50
+      //   },
+      //   {
+      //     id: 2,
+      //     textData: "State 1",
+      //     type: "rectangle",
+      //     positionX: 400,
+      //     positionY: 125,
+      //     height: 100,
+      //     width: 100,
+      //     path: "M 50 0 100 50 50 100 0 50 Z"
+      //   },
+      //   {
+      //     id: 3,
+      //     textData: "Completed?",
+      //     type: "circle",
+      //     positionX: 399.5,
+      //     positionY: 290
+      //   }
+      // ];
+
+      var data = this.workflowToDiagramConverterService.getDiagramSource(this.workflow);
 
       var connectionsData = [
         {

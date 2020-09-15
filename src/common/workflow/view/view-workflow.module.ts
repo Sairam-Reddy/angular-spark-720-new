@@ -13,6 +13,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { DraftWorkflowModule } from "../draft/draft-workflow.module";
 import { ViewWorkflowComponent } from "./view-workflow.component";
 import { WorkflowService } from "../services/workflow.service";
+import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
 
 @NgModule({
   imports: [
@@ -28,6 +29,6 @@ import { WorkflowService } from "../services/workflow.service";
   ],
   declarations: [ViewWorkflowComponent],
   exports: [ViewWorkflowComponent],
-  providers: [WorkflowService]
+  providers: [WorkflowService, WorkflowToDiagramConverterService]
 })
 export class ViewWorkflowModule {}
