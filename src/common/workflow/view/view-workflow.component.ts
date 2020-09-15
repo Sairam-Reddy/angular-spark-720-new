@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit } from "@angular/core";
 import { WorkflowService } from "../services/workflow.service";
+import { Workflow } from "../models/workflow";
 
 declare var kendo: any;
 
@@ -12,11 +13,14 @@ declare var kendo: any;
 export class ViewWorkflowComponent implements AfterViewInit, OnInit {
   constructor(private worflowService: WorkflowService) {}
 
+  public workflow: Workflow;
+
   ngOnInit() {
     this.worflowService.getUsers().subscribe(items => {
       console.log(items);
     });
     this.worflowService.getWorkflows().subscribe(items => {
+      this.workflow = items[0];
       console.log(items);
     });
   }
