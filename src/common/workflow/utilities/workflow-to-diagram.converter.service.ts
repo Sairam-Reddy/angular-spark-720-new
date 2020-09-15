@@ -21,16 +21,7 @@ export class WorkflowToDiagramConverterService {
     var connectionsData = [];
 
     workflow.steps.forEach((x: WorkflowStep) => {
-      var step = {
-        id: x.id,
-        textData: x.name,
-        type: "rectangle",
-        positionX: 424.5,
-        positionY: 20,
-        fillColor: "green",
-        width: 50
-      };
-      data.push(step);
+      data.push(this.getworkflowStep(x));
 
       if (x.acceptStep) {
         var acceptConnection = {
@@ -50,5 +41,27 @@ export class WorkflowToDiagramConverterService {
     });
 
     return { data: data, connectionsData: connectionsData };
+  }
+
+  getworkflowStep(wfStep: WorkflowStep) {
+    var step: any = {
+      id: wfStep.id,
+      textData: wfStep.name,
+      width: 60,
+      positionX: 424.5,
+      positionY: 20
+    };
+
+    if (wfStep.acceptStep && wfStep.rejectStep) {
+      step.type = undefined;
+      step.path = "M 50 0 100 50 50 100 0 50 Z";
+      step.fillColor = "#f2bf25";
+    }
+
+    if (!wfStep.rejectStep) {
+      (step.type = "rectangle"), (step.fillColor = "#f2bf25");
+    }
+
+    return step;
   }
 }

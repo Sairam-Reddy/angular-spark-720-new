@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit } from "@angular/core";
 import { WorkflowService } from "../services/workflow.service";
 import { Workflow } from "../models/workflow";
+import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
 
 declare var kendo: any;
 
@@ -10,8 +11,8 @@ declare var kendo: any;
   templateUrl: "view-workflow.component.html",
   styleUrls: ["view-workflow.component.css"]
 })
-export class ViewWorkflowComponent implements AfterViewInit, OnInit {
-  constructor(private worflowService: WorkflowService) {}
+export class ViewWorkflowComponent implements OnInit {
+  constructor(private worflowService: WorkflowService, private workflowToDiagramConverterService: WorkflowToDiagramConverterService) {}
 
   public workflow: Workflow;
 
@@ -21,11 +22,12 @@ export class ViewWorkflowComponent implements AfterViewInit, OnInit {
     });
     this.worflowService.getWorkflows().subscribe(items => {
       this.workflow = items[0];
-      console.log(items);
+
+      this.drawWorkflowDiagram(this.workflowToDiagramConverterService.getDiagramSource(this.workflow));
     });
   }
 
-  ngAfterViewInit() {
+  drawWorkflowDiagram(workflowOptions: any) {
     kendo.jQuery(function() {
       var diagram = kendo
         .jQuery("#diagram")
@@ -68,49 +70,52 @@ export class ViewWorkflowComponent implements AfterViewInit, OnInit {
         return shape;
       }
 
-      var data = [
-        {
-          id: 1,
-          textData: "Start",
-          type: "circle",
-          positionX: 424.5,
-          positionY: 20,
-          fillColor: "green",
-          width: 50
-        },
-        {
-          id: 2,
-          textData: "State 1",
-          type: "rectangle",
-          positionX: 400,
-          positionY: 125,
-          height: 100,
-          width: 100,
-          path: "M 50 0 100 50 50 100 0 50 Z"
-        },
-        {
-          id: 3,
-          textData: "Completed?",
-          type: "circle",
-          positionX: 399.5,
-          positionY: 290
-        }
-      ];
+      // var data = [
+      //   {
+      //     id: 1,
+      //     textData: "Start",
+      //     type: "circle",
+      //     positionX: 424.5,
+      //     positionY: 20,
+      //     fillColor: "green",
+      //     width: 50
+      //   },
+      //   {
+      //     id: 2,
+      //     textData: "State 1",
+      //     type: "rectangle",
+      //     positionX: 400,
+      //     positionY: 125,
+      //     height: 100,
+      //     width: 100,
+      //     path: "M 50 0 100 50 50 100 0 50 Z"
+      //   },
+      //   {
+      //     id: 3,
+      //     textData: "Completed?",
+      //     type: "circle",
+      //     positionX: 399.5,
+      //     positionY: 290
+      //   }
+      // ];
 
-      var connectionsData = [
-        {
-          fromShapeId: 1,
-          toShapeId: 2
-        },
-        {
-          fromShapeId: 2,
-          toShapeId: 3
-        },
-        {
-          fromShapeId: 3,
-          toShapeId: 1
-        }
-      ];
+      var data = workflowOptions.data;
+      var connectionsData = workflowOptions.connectionsData;
+
+      // var connectionsData = [
+      //   {
+      //     fromShapeId: 1,
+      //     toShapeId: 2
+      //   },
+      //   {
+      //     fromShapeId: 2,
+      //     toShapeId: 3
+      //   },
+      //   {
+      //     fromShapeId: 3,
+      //     toShapeId: 1
+      //   }
+      // ];
 
       for (var i = 0; i < data.length; i++) {
         diagram.addShape(createShape(data[i]));
