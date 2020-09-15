@@ -19,7 +19,8 @@
       Redo</button>
 		<button mat-raised-button (click)="exportAsPDF()">Export as PDF</button>
 		<button mat-raised-button (click)="exportAsImage()">Export as Image</button>
-    	<button mat-raised-button (click)="saveAsJson()">Export as JSON</button>
+		<button mat-raised-button (click)="saveAsJson()">
+        <a [href]="fileUrl" download="Workflow.json">Export as JSON</a></button>
 	</div>
 </mat-toolbar>
 

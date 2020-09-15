@@ -11,7 +11,9 @@ declare var kendo: any;
   styleUrls: ["draft-workflow.component.css"]
 })
 export class DraftWorkflowComponent implements AfterViewInit {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    fileUrl;
+    
+  constructor(iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       "new",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -203,7 +205,6 @@ export class DraftWorkflowComponent implements AfterViewInit {
     var json = JSON.stringify(diagram.save());
     const blob = new Blob([json], { type: "application/json" });
 
-    var url = URL.createObjectURL(blob);
-    URL.revokeObjectURL(url);
+   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 }
