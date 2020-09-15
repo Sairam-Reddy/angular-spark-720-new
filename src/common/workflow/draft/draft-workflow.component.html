@@ -7,6 +7,7 @@
 		<button mat-raised-button>
        <mat-icon [svgIcon]="'open'" class="toolbar-icon" aria-hidden="false"></mat-icon>
       Open</button>
+		<input type="file" #fileSelector />
 		<button mat-raised-button>
        <mat-icon [svgIcon]="'save'" class="toolbar-icon" aria-hidden="false"></mat-icon>
       Save</button>
@@ -37,7 +38,8 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<div class="shape-items" id="shapesPanelBar">
-					<div class="shape-item" data-shape='{"width":120,"height":120,"type":"circle", "textData": "Start", "fillColor": "#008000"}'
+					<div class="shape-item"
+						data-shape='{"width":120,"height":120,"type":"circle", "textData": "Start", "fillColor": "#008000"}'
 						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/circle.png');">
 						<div class="shape-item__label">Start</div>
 					</div>
@@ -46,7 +48,8 @@
 						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/rectangle.png');">
 						<div class="shape-item__label">Work</div>
 					</div>
-					<div class="shape-item" data-shape='{"width":120,"height":120,"path":"M 50 0 100 50 50 100 0 50 Z", "textData": "Decision", "fillColor": "#f2bf25"}'
+					<div class="shape-item"
+						data-shape='{"width":120,"height":120,"path":"M 50 0 100 50 50 100 0 50 Z", "textData": "Decision", "fillColor": "#f2bf25"}'
 						style="background-image: url('https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/rhombus.png');">
 						<div class="shape-item__label">Decision</div>
 					</div>
