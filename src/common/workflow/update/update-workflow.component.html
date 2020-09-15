@@ -68,18 +68,36 @@
 
 	<mat-drawer-content class="content">
 		<div id="diagram"></div>
-		<script type="text/kendo" id="shapeItemTemplate">
-			<div>
-                textData: #:textData#
-      </div>
-    </script>
-
-		<script type="text/kendo" id="connectionItemTemplate">
-			<div>
-                #console.log(data)#
-                #:FromShapeId# - #:ToShapeId#
-      </div>
-    </script>
+		<div class="properties">
+			<mat-toolbar>
+				<span>Properties</span>
+				<mat-divider></mat-divider>
+			</mat-toolbar>
+			<mat-accordion>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Canvas Properties
+						</mat-panel-title>
+					</mat-expansion-panel-header>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Shape Properties
+						</mat-panel-title>
+					</mat-expansion-panel-header>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Connector Properties
+						</mat-panel-title>
+					</mat-expansion-panel-header>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
 	</mat-drawer-content>
+
 
 </mat-drawer-container>
