@@ -299,15 +299,11 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       var g = new dataviz.diagram.Group();
       var dataItem = options.dataItem;
 
-      if (dataItem.JobTitle === "President") {
+      if (!dataItem.type) {
         g.append(
-          new dataviz.diagram.Circle({
-            radius: 60,
-            stroke: {
-              width: 2,
-              color: dataItem.Color || "#586477"
-            },
-            fill: "#e8eff7"
+          new dataviz.diagram.Path({
+            data: dataItem.path,
+            fill: dataItem.fillColor
           })
         );
       } else {
