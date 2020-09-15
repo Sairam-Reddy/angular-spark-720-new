@@ -142,7 +142,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
           cnctrs.push({ name: "bottom" });
         }
         if (options.type === "rectangle") {
-          cnctrs.push({ name: "bottom" }, { name: "left" }, { name: "right" });
+          cnctrs.push({ name: "bottom", stroke: {dashType: "dash"} }, { name: "left" }, { name: "right" });
         }
         if (options.path === "M 50 0 100 50 50 100 0 50 Z") {
           cnctrs.push({ name: "left" }, { name: "right" });
