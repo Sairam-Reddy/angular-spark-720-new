@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
+import { DashboardModule } from "../common/dashboard/dashboard.module";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatCardModule,
     MatIconModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DashboardModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
