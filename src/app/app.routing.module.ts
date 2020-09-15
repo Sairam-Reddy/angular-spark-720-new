@@ -5,6 +5,7 @@ import { DashboardComponent } from "../common/dashboard/dashboard.component";
 import { DraftWorkflowComponent } from "../common/workflow/draft/draft-workflow.component";
 import { HomeComponent } from "./home.component";
 import { UpdateWorkflowComponent } from "../common/workflow/update/update-workflow.component";
+import { ViewWorkflowComponent } from "../common/workflow/view/view-workflow.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: "update-workflow",
         component: UpdateWorkflowComponent
+      },
+      {
+        path: "view-workflow",
+        component: ViewWorkflowComponent
       },
       {
         path: "dashboard",

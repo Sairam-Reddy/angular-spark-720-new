@@ -39,7 +39,8 @@ import { HomeComponent } from "./home.component";
     HttpClientModule,
     BrowserAnimationsModule,
     DashboardModule,
-    UpdateWorkflowModule
+    UpdateWorkflowModule,
+    ViewWorkflowModule
   ],
   declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent]
