@@ -1,0 +1,35 @@
+<div class="home">
+	<mat-card (click)= "selectedCard($event)" class="workflow">
+		<mat-card-header>
+			<div mat-card-avatar class="workflow-header-image"></div>
+			<mat-card-title></mat-card-title>
+		</mat-card-header>
+		<img class="workflow-image" mat-card-image src="https://raw.githubusercontent.com/Ramya-06/angular-spark720-homepage/master/src/content/images/flowchart.png" alt="Photo of a Shiba Inu">
+		<mat-card-content class="workflow__content">
+				Workflow Viewer
+		</mat-card-content>
+	</mat-card>   
+
+<div class="workflow-viewer" *ngIf="selected">
+	<mat-card [routerLink]="['workflow']" class="workflow-viewer__create">
+      <mat-icon [svgIcon]="'workflow'" class="workflow-viewer__icon" aria-hidden="false"></mat-icon>
+	<div class="workflow-viewer__content"> Create Workflow </div>
+	</mat-card>  
+
+  <mat-card  class="workflow-viewer__update">
+	  <mat-icon [svgIcon]="'algorithm'" class="workflow-viewer__icon" aria-hidden="false"></mat-icon>
+	<div class="workflow-viewer__content"> Update Workflow </div>
+	</mat-card>    
+</div>
+
+	<mat-card *ngIf="!selected" class="dashboard" [routerLink]="['dashboard']">
+		<mat-card-header>
+			<div mat-card-avatar class="dashboard-header-image"></div>
+			<mat-card-title> </mat-card-title>
+		</mat-card-header>
+		<img class="dashboard-image" mat-card-image src="https://raw.githubusercontent.com/Ramya-06/angular-spark720-homepage/master/src/content/images/home.png" alt="Photo of a Shiba Inu">
+		<mat-card-content class="dashboard__content">
+				Dashboard
+		</mat-card-content>
+	</mat-card>
+</div>

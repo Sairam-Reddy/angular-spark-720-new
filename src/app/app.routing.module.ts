@@ -3,13 +3,17 @@ import { Routes, RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { DashboardComponent } from "../common/dashboard/dashboard.component";
 import { DraftWorkflowComponent } from "../common/workflow/draft/draft-workflow.component";
+import { HomeComponent } from "./home.component";
 
 const routes: Routes = [
   {
-    path: "",
-    component: AppComponent,
-
+    path: "home",
     children: [
+      {
+        path: "",
+        component: HomeComponent
+      },
+
       {
         path: "workflow",
         component: DraftWorkflowComponent

@@ -21,6 +21,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { DashboardModule } from "../common/dashboard/dashboard.module";
+import { HomeComponent } from "./home.component";
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { DashboardModule } from "../common/dashboard/dashboard.module";
     BrowserAnimationsModule,
     DashboardModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
