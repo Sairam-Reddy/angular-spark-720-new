@@ -61,81 +61,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
     this.worflowService.getUsers().subscribe(items => {
       console.log(items);
     });
-    // this.worflowService.getWorkflows().subscribe(items => {
-    //   this.workflow = items[0];
-
-    //   var workflow = this.workflowToDiagramConverterService.getDiagramSource(
-    //     this.workflow
-    //   );
-    //   var data = workflow.data;
-    //   var connectiondata = workflow.connectionsData;
-    // });
   }
-
-  // drawWorkflowDiagram(workflowOptions: any) {
-  //   kendo.jQuery(function() {
-  //     var diagram = kendo
-  //       .jQuery("#diagram")
-  //       .kendoDiagram({
-  //         connectionDefaults: {
-  //           endCap: {
-  //             type: "ArrowEnd",
-  //             fill: {
-  //               color: "#222222"
-  //             }
-  //           },
-  //           hover: {
-  //             stroke: {
-  //               color: "#02DA10",
-  //               fill: "#02DA10"
-  //             }
-  //           }
-  //         }
-  //       })
-  //       .getKendoDiagram();
-
-  // function createShape(options) {
-  //   var shapeOptions = {
-  //     id: options.id,
-  //     x: options.positionX,
-  //     y: options.positionY,
-  //     width: options.width || 100,
-  //     height: options.height || 50,
-  //     type: options.type,
-  //     path: options.path || undefined,
-  //     content: {
-  //       text: options.textData || undefined,
-  //       color: options.textData.length > 15 ? "transparent" : "#fff"
-  //     },
-  //     fill: options.fillColor || "#0088CC"
-  //   };
-
-  //   var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
-
-  //   return shape;
-  // }
-
-  //     var data = workflowOptions.data;
-  //     var connectionsData = workflowOptions.connectionsData;
-
-  //     for (var i = 0; i < data.length; i++) {
-  //       diagram.addShape(createShape(data[i]));
-  //     }
-
-  //     for (var j = 0; j < connectionsData.length; j++) {
-  //       var sourceShape = diagram.getShapeById(connectionsData[j].fromShapeId);
-  //       var targetShape = diagram.getShapeById(connectionsData[j].toShapeId);
-  //       diagram.connect(sourceShape, targetShape, {
-  //         content: {
-  //           text: connectionsData[j].text
-  //         },
-  //         stroke: {
-  //           color: connectionsData[j].color
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
 
   ngAfterViewInit() {
     this.worflowService.getWorkflows().subscribe(items => {
@@ -240,9 +166,9 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
         data: connectiondata,
         schema: {
           model: {
-            id: "Id",
+            id: "id",
             fields: {
-              Id: { type: "number", editable: false },
+              id: { type: "number", editable: false },
               from: { from: "FromShapeId", type: "number" },
               to: { from: "ToShapeId", type: "number" },
               color: { type: "string" }
@@ -407,26 +333,6 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
           })
         );
       }
-
-      // g.append(
-      //   new dataviz.diagram.Rectangle({
-      //     width: dataItem.positionX,
-      //     height: dataItem.positionY,
-      //     stroke: {
-      //       width: 0
-      //     },
-      //     fill: dataItem.fillColor
-      //   })
-      // );
-
-      // g.append(
-      //   new dataviz.diagram.TextBlock({
-      //     text: dataItem.textData,
-      //     x: 85,
-      //     y: 30,
-      //     fill: "#fff"
-      //   })
-      // );
 
       return g;
     }
