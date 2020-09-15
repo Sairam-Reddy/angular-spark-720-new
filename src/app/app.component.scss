@@ -1,0 +1,67 @@
+.home {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 40px;
+  overflow: hidden;
+}
+
+.workflow{
+     width: 360px;
+    margin: 100px;
+    margin-left: 150px;
+    cursor: pointer;
+    background-color: teal;
+      &__content {
+   text-align: center;
+   font-size: xx-large;
+    font-family: ui-serif;
+    font-weight: bold;
+    color: mistyrose;
+    font-style: oblique;
+      }
+}
+.workflow-viewer{
+  display: flex;
+  flex-direction: column;
+  &__create,  &__update {
+     margin: 50px;
+    width: 350px;
+    color: #524861;
+    background-color: powderblue;
+     cursor: pointer;     
+ }
+  &__content {
+   text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: serif;
+    font-style: oblique;
+    /* margin-top: -47px; */
+    position: relative;
+    bottom: 35px;
+    left: 10px;
+ }
+  &__icon {
+  height: 70px;
+  width: 70px;
+  position: relative;
+  top: 18px;
+ }
+}
+.dashboard {   
+   width: 360px;
+    margin: 100px;
+    cursor: pointer;
+    background-color: lightslategrey;
+      &__content {
+   text-align: center;
+  // color: yellowgreen;
+  color: mistyrose;
+    font-size: xx-large;
+    font-weight: bold;
+     font-family: ui-serif;
+     font-style: oblique;
+      }
+}

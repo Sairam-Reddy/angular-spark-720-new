@@ -15,6 +15,11 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { UpdateWorkflowModule } from "../common/workflow/update/update-workflow.module";
+import { AppRoutingModule } from "./app.routing.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   imports: [
@@ -25,7 +30,12 @@ import { UpdateWorkflowModule } from "../common/workflow/update/update-workflow.
     DraftWorkflowModule,
     UpdateWorkflowModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AppRoutingModule,
+    MatCardModule,
+    MatIconModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
