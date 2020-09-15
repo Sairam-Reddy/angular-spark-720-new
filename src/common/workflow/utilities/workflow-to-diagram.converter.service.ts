@@ -15,7 +15,7 @@ import { WorkflowStep } from "../models/workflow-step";
 @Injectable()
 export class WorkflowToDiagramConverterService {
   constructor(public afs: AngularFirestore) {}
-  
+
   getDiagramSource(workflow: Workflow) {
     var data = [];
     var connectionsData = [];
@@ -34,7 +34,7 @@ export class WorkflowToDiagramConverterService {
 
       if (x.acceptStep) {
         var acceptConnection = {
-          romShapeId: x.id,
+          fromShapeId: x.id,
           toShapeId: x.acceptStep
         };
         connectionsData.push(acceptConnection);
@@ -42,7 +42,7 @@ export class WorkflowToDiagramConverterService {
 
       if (x.rejectStep) {
         var rejectConnection = {
-          romShapeId: x.id,
+          fromShapeId: x.id,
           toShapeId: x.rejectStep
         };
         connectionsData.push(rejectConnection);
