@@ -229,6 +229,73 @@ export class UpdateWorkflowComponent implements AfterViewInit {
         },
         dataBound: onDataBound
       });
+
+      kendo.jQuery("#shapesPanelBar").kendoDraggable({
+        filter: ".shape-item",
+        hint: function(element) {
+          return element.clone();
+        }
+      });
+
+      kendo.jQuery("#diagram").kendoDropTarget({
+        drop: function(e) {
+          if (e.draggable.hint) {
+            var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
+            var position = diagram.documentToModel({ x: e.pageX, y: e.pageY });
+
+            // var targetShape = shapeByPosition(position);
+
+            var options = e.draggable.hint.data("shape");
+            options.positionX = position.x;
+            options.positionY = position.y;
+
+            var shape = createShape(options);
+            var newShape = diagram.addShape(shape);
+            // diagram.connect(targetShape, newShape);
+            diagram.layout(diagram.options.layout);
+          }
+        }
+      });
+
+      function createShape(options) {
+        var shapeOptions = {
+          id: "ABC",
+          x: options.positionX,
+          y: options.positionY,
+          width: options.width || 100,
+          height: options.height || 50,
+          type: options.type,
+          path: options.path || undefined,
+          content: {
+            text: options.textData || undefined,
+            color: "#fff"
+          },
+          fill: options.fillColor || "#0088CC",
+          connectors: getShapeConnectors(options)
+        };
+
+        var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
+
+        return shape;
+      }
+
+      function getShapeConnectors(options) {
+        var cnctrs = [];
+        if (options.type === "circle") {
+          cnctrs.push({ name: "bottom" });
+        }
+        if (options.type === "rectangle") {
+          cnctrs.push(
+            { name: "bottom", stroke: { dashType: "dash" } },
+            { name: "left" },
+            { name: "right" }
+          );
+        }
+        if (options.path === "M 50 0 100 50 50 100 0 50 Z") {
+          cnctrs.push({ name: "left" }, { name: "right" });
+        }
+        return cnctrs;
+      }
     }
 
     kendo.jQuery(document).ready(createDiagram);
