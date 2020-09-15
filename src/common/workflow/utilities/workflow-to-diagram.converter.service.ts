@@ -47,7 +47,8 @@ export class WorkflowToDiagramConverterService {
     var step: any = {
       id: wfStep.id,
       textData: wfStep.name,
-      width: 60,
+      width: 120,
+      height: 120,
       positionX: 424.5,
       positionY: 20
     };
@@ -59,7 +60,8 @@ export class WorkflowToDiagramConverterService {
     }
 
     if (!wfStep.rejectStep) {
-      (step.type = "rectangle"), (step.fillColor = "#f2bf25");
+      step.type = "rectangle";
+      step.fillColor = "#0088CC";
     }
 
     return step;
