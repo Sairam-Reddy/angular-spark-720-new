@@ -11,6 +11,42 @@ declare var kendo: any;
   styleUrls: ["update-workflow.component.css"]
 })
 export class UpdateWorkflowComponent implements AfterViewInit {
+  fileUrl;
+
+  constructor(iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      "new",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/new.svg"
+      )
+    );
+
+    iconRegistry.addSvgIcon(
+      "open",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/open.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "save",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/save.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "undo",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/undo.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "redo",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "https://raw.githubusercontent.com/Sairam-Reddy/angular-spark-720/master/src/content/icons/redo.svg"
+      )
+    );
+  }
+
   ngAfterViewInit() {
     function localDataSource(options) {
       var id = options.schema.model.id;
@@ -243,5 +279,78 @@ export class UpdateWorkflowComponent implements AfterViewInit {
     function onDataBound(e) {
       this.bringIntoView(this.shapes);
     }
+  }
+
+  addAdvancedStep(stepName: string) {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    var shapeOptions = {
+      id: "ABC",
+      x: 200,
+      y: 200,
+      width: 120,
+      height: 120,
+      type: "rectangle",
+      content: {
+        text: stepName,
+        color: "#fff"
+      },
+      fill: "#FFA500",
+      connectors: [{ name: "bottom" }, { name: "left" }, { name: "right" }]
+    };
+
+    var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
+    var newShape = diagram.addShape(shape);
+  }
+
+  exportAsPDF() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram
+      .exportPDF({
+        paperSize: "auto",
+        margin: { left: "1cm", top: "1cm", right: "1cm", bottom: "1cm" }
+      })
+      .done(function(data) {
+        kendo.saveAs({
+          dataURI: data,
+          fileName: "diagram.pdf",
+          proxyURL: "https://demos.telerik.com/kendo-ui/service/export"
+        });
+      });
+  }
+
+  exportAsImage() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.exportImage().done(function(data) {
+      kendo.saveAs({
+        dataURI: data,
+        fileName: "diagram.png",
+        proxyURL: "https://demos.telerik.com/kendo-ui/service/export"
+      });
+    });
+  }
+
+  reset() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.clear();
+  }
+
+  undo() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.undo();
+  }
+
+  redo() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    diagram.redo();
+  }
+
+  saveAsJson() {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    var json = JSON.stringify(diagram.save());
+    const blob = new Blob([json], { type: "application/json" });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      window.URL.createObjectURL(blob)
+    );
   }
 }

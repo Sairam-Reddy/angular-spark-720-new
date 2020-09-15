@@ -1,11 +1,8 @@
 
-
-
-  
  .container {
    display: flex;
-  width: 800px;
-  height: 800px;
+  width: 1000px;
+  height: 1000px;
  }
 
  .shape-items {
@@ -50,6 +47,11 @@
 
 a {
     text-decoration: none;
+}
+
+#diagram{
+  width: 1000px;
+  height: 1000px;
 }
  
  

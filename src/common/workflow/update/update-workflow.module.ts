@@ -8,13 +8,25 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { UpdateWorkflowComponent } from "./update-workflow.component";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule    
+    FormsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule   
   ],
   declarations: [UpdateWorkflowComponent],
   exports: [UpdateWorkflowComponent]

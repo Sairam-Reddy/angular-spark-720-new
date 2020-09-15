@@ -1,0 +1,58 @@
+
+ .container {
+   display: flex;
+  width: 1200px;
+  height: 1200px;
+ }
+
+ .shape-items {
+  display: flex;  
+  flex-direction: column;
+}
+
+.shape-item
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
+
+.shape-item__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-toolbar {
+  height: 50px;
+}
+
+.toolbar-icon {
+  width: 16px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+#diagram{
+  width: 1000px;
+  height: 1000px;
+}
+ 
+ 
+ 
