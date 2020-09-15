@@ -20,15 +20,17 @@ export class WorkflowToDiagramConverterService {
     var data = [];
     var connectionsData = [];
 
-    workflow.steps.forEach((x: WorkflowStep) => {
-      data.push(this.getworkflowStep(x));
+    workflow.steps.forEach((x: WorkflowStep, index: number) => {
+      data.push(this.getworkflowStep(x, index));
 
       if (x.acceptStep) {
         var acceptConnection = {
           fromShapeId: x.id,
           toShapeId: x.acceptStep,
           color: "#008000",
-          text: "Accept"
+          from: x.rejectStep ? "left" : "bottom",
+          to: "top"
+          // text: "Accept"
         };
         connectionsData.push(acceptConnection);
       }
@@ -38,7 +40,9 @@ export class WorkflowToDiagramConverterService {
           fromShapeId: x.id,
           toShapeId: x.rejectStep,
           color: "#FF0000",
-          text: "Reject"
+          from: x.rejectStep ? "right" : "bottom",
+          to: "top"
+          // text: "Reject"
         };
         connectionsData.push(rejectConnection);
       }
@@ -47,20 +51,21 @@ export class WorkflowToDiagramConverterService {
     return { data: data, connectionsData: connectionsData };
   }
 
-  getworkflowStep(wfStep: WorkflowStep) {
+  getworkflowStep(wfStep: WorkflowStep, i: number) {
     var step: any = {
       id: wfStep.id,
       textData: wfStep.name,
       width: 120,
       height: 120,
-      positionX: 424.5,
-      positionY: 20
+      positionX: 300,
+      positionY: i * 150
     };
 
     if (wfStep.acceptStep && wfStep.rejectStep) {
       step.type = undefined;
       step.path = "M 50 0 100 50 50 100 0 50 Z";
       step.fillColor = "#f2bf25";
+      step.height = 90;
     }
 
     if (!wfStep.rejectStep) {
