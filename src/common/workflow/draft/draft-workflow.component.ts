@@ -89,6 +89,11 @@ export class DraftWorkflowComponent implements AfterViewInit {
                 fill: "#02DA10"
               }
             }
+          },
+          layout: {
+            type: "tree",
+            subtype: "tipover",
+            underneathHorizontalOffset: 140
           }
         })
         .getKendoDiagram();
@@ -111,7 +116,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
             options.positionX = position.x;
             options.positionY = position.y;
 
-            var shape = createShape(options)
+            var shape = createShape(options);
             var newShape = diagram.addShape(shape);
             // diagram.connect(targetShape, newShape);
             diagram.layout(diagram.options.layout);
@@ -150,8 +155,6 @@ export class DraftWorkflowComponent implements AfterViewInit {
 
         return shape;
       }
-
-
     });
   }
 
