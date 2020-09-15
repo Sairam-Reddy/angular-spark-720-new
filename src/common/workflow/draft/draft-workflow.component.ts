@@ -11,8 +11,8 @@ declare var kendo: any;
   styleUrls: ["draft-workflow.component.css"]
 })
 export class DraftWorkflowComponent implements AfterViewInit {
-    fileUrl;
-    
+  fileUrl;
+
   constructor(iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       "new",
@@ -158,6 +158,27 @@ export class DraftWorkflowComponent implements AfterViewInit {
     });
   }
 
+  addAdvancedStep(stepName: string) {
+    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+    var shapeOptions = {
+      id: "ABC",
+      x: 200,
+      y: 200,
+      width: 120,
+      height: 120,
+      type: "rectangle",
+      content: {
+        text: stepName,
+        color: "#fff"
+      },
+      fill: "#FFA500",
+      connectors: [{ name: "bottom" }, { name: "left" }, { name: "right" }]
+    };
+
+    var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
+    var newShape = diagram.addShape(shape);
+  }
+
   exportAsPDF() {
     var diagram = kendo.jQuery("#diagram").getKendoDiagram();
     diagram
@@ -205,6 +226,8 @@ export class DraftWorkflowComponent implements AfterViewInit {
     var json = JSON.stringify(diagram.save());
     const blob = new Blob([json], { type: "application/json" });
 
-   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      window.URL.createObjectURL(blob)
+    );
   }
 }
