@@ -47,32 +47,6 @@ export class DraftWorkflowComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     kendo.jQuery(function() {
-      // var diagram = kendo
-      //   .jQuery("#diagram")
-      //   .kendoDiagram({
-      //     dataSource: {
-      //       data: [
-      //         {
-      //           items: [{}, {}]
-      //         }
-      //       ],
-      //       schema: {
-      //         model: {
-      //           children: "items"
-      //         }
-      //       }
-      //     },
-      //     shapeDefaults: {
-      //       width: 120,
-      //       height: 120,
-      //       fill: "#8ebc00"
-      //     },
-      //     layout: {
-      //       type: "tree"
-      //     }
-      //   })
-      //   .getKendoDiagram();
-
       var diagram = kendo
         .jQuery("#diagram")
         .kendoDiagram({
@@ -153,12 +127,27 @@ export class DraftWorkflowComponent implements AfterViewInit {
             text: options.textData || undefined,
             color: "#fff"
           },
-          fill: options.fillColor || "#0088CC"
+          fill: options.fillColor || "#0088CC",
+          connectors: getShapeConnectors(options)
         };
 
         var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
 
         return shape;
+      }
+
+      function getShapeConnectors(options) {
+        var cnctrs = [];
+        if (options.type === "circle") {
+          cnctrs.push({ name: "bottom" });
+        }
+        if (options.type === "rectangle") {
+          cnctrs.push({ name: "bottom" }, { name: "left" }, { name: "right" });
+        }
+        if (options.path === "M 50 0 100 50 50 100 0 50 Z") {
+          cnctrs.push({ name: "left" }, { name: "right" });
+        }
+        return cnctrs;
       }
     });
   }
