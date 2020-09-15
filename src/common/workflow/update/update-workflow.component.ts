@@ -305,6 +305,11 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       var g = new dataviz.diagram.Group();
       var dataItem = options.dataItem;
 
+      g.drawingElement.options.tooltip = {
+        content: dataItem.text,
+        shared: true
+      };
+
       if (!dataItem.type) {
         g.append(
           new dataviz.diagram.Path({
