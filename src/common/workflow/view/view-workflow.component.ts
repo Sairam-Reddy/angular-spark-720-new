@@ -12,7 +12,10 @@ declare var kendo: any;
   styleUrls: ["view-workflow.component.css"]
 })
 export class ViewWorkflowComponent implements OnInit {
-  constructor(private worflowService: WorkflowService, private workflowToDiagramConverterService: WorkflowToDiagramConverterService) {}
+  constructor(
+    private worflowService: WorkflowService,
+    private workflowToDiagramConverterService: WorkflowToDiagramConverterService
+  ) {}
 
   public workflow: Workflow;
 
@@ -23,7 +26,9 @@ export class ViewWorkflowComponent implements OnInit {
     this.worflowService.getWorkflows().subscribe(items => {
       this.workflow = items[0];
 
-      this.drawWorkflowDiagram(this.workflowToDiagramConverterService.getDiagramSource(this.workflow));
+      this.drawWorkflowDiagram(
+        this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
+      );
     });
   }
 
@@ -70,52 +75,8 @@ export class ViewWorkflowComponent implements OnInit {
         return shape;
       }
 
-      // var data = [
-      //   {
-      //     id: 1,
-      //     textData: "Start",
-      //     type: "circle",
-      //     positionX: 424.5,
-      //     positionY: 20,
-      //     fillColor: "green",
-      //     width: 50
-      //   },
-      //   {
-      //     id: 2,
-      //     textData: "State 1",
-      //     type: "rectangle",
-      //     positionX: 400,
-      //     positionY: 125,
-      //     height: 100,
-      //     width: 100,
-      //     path: "M 50 0 100 50 50 100 0 50 Z"
-      //   },
-      //   {
-      //     id: 3,
-      //     textData: "Completed?",
-      //     type: "circle",
-      //     positionX: 399.5,
-      //     positionY: 290
-      //   }
-      // ];
-
       var data = workflowOptions.data;
       var connectionsData = workflowOptions.connectionsData;
-
-      // var connectionsData = [
-      //   {
-      //     fromShapeId: 1,
-      //     toShapeId: 2
-      //   },
-      //   {
-      //     fromShapeId: 2,
-      //     toShapeId: 3
-      //   },
-      //   {
-      //     fromShapeId: 3,
-      //     toShapeId: 1
-      //   }
-      // ];
 
       for (var i = 0; i < data.length; i++) {
         diagram.addShape(createShape(data[i]));
