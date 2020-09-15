@@ -13,6 +13,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
+import { WorkflowService } from "../services/workflow.service";
+import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { MatDividerModule } from "@angular/material/divider";
     MatIconModule   
   ],
   declarations: [UpdateWorkflowComponent],
-  exports: [UpdateWorkflowComponent]
+  exports: [UpdateWorkflowComponent],
+   providers: [WorkflowService, WorkflowToDiagramConverterService]
 })
 export class UpdateWorkflowModule {}
