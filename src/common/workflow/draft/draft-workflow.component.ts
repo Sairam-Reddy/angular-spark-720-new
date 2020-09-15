@@ -75,7 +75,22 @@ export class DraftWorkflowComponent implements AfterViewInit {
 
       var diagram = kendo
         .jQuery("#diagram")
-        .kendoDiagram()
+        .kendoDiagram({
+          connectionDefaults: {
+            endCap: {
+              type: "ArrowEnd",
+              fill: {
+                color: "#222222"
+              }
+            },
+            hover: {
+              stroke: {
+                color: "#02DA10",
+                fill: "#02DA10"
+              }
+            }
+          }
+        })
         .getKendoDiagram();
 
       kendo.jQuery("#shapesPanelBar").kendoDraggable({
