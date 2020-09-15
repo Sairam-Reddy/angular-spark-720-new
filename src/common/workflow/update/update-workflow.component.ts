@@ -150,7 +150,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
             id: "id",
             fields: {
               id: { type: "string", editable: false },
-              textData: { type: "string" },
+              text: { type: "string" },
               fillColor: { type: "string" },
               height: { type: "number" },
               width: { type: "number" },
@@ -213,7 +213,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
         shapeDefaults: {
           visual: visualTemplate,
           content: {
-            template: "#= dataItem.textData #",
+            template: "#= dataItem.text #",
             fontSize: 17
           }
         },
@@ -269,7 +269,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       //     type: options.type,
       //     path: options.path || undefined,
       //     content: {
-      //       text: options.textData || undefined,
+      //       text: options.text || undefined,
       //       color: "#fff"
       //     },
       //     fill: options.fillColor || "#0088CC",

@@ -64,8 +64,8 @@ export class ViewWorkflowComponent implements OnInit {
           type: options.type,
           path: options.path || undefined,
           content: {
-            text: options.textData || undefined,
-            color: options.textData.length > 15 ? "transparent" : "#fff"
+            text: options.text || undefined,
+            color: options.text.length > 15 ? "transparent" : "#fff"
           },
           fill: options.fillColor || "#0088CC"
         };

@@ -60,7 +60,7 @@ export class WorkflowToDiagramConverterService {
   getworkflowStep(wfStep: WorkflowStep, i: number) {
     var step: any = {
       id: wfStep.id,
-      textData: wfStep.name,
+      text: wfStep.name,
       width: 120,
       height: 120,
       positionX: 300,
