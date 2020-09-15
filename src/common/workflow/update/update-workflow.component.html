@@ -60,7 +60,7 @@
 				<mat-menu #advancedSteps="matMenu">
 					<button mat-menu-item (click)="addAdvancedStep('Email')">Email</button>
 					<button mat-menu-item (click)="addAdvancedStep('Convert PDF')">Convert PDF</button>
-          <button mat-menu-item (click)="addAdvancedStep('Set Property')">Set Property</button>
+					<button mat-menu-item (click)="addAdvancedStep('Set Property')">Set Property</button>
 				</mat-menu>
 			</mat-expansion-panel>
 		</mat-accordion>
@@ -68,6 +68,18 @@
 
 	<mat-drawer-content class="content">
 		<div id="diagram"></div>
+		<script type="text/kendo" id="shapeItemTemplate">
+			<div>
+                textData: #:textData#
+      </div>
+    </script>
+
+		<script type="text/kendo" id="connectionItemTemplate">
+			<div>
+                #console.log(data)#
+                #:FromShapeId# - #:ToShapeId#
+      </div>
+    </script>
 	</mat-drawer-content>
 
 </mat-drawer-container>
