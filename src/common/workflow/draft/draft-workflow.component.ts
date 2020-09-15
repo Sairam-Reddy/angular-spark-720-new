@@ -104,9 +104,12 @@ export class DraftWorkflowComponent implements AfterViewInit {
         drop: function(e) {
           if (e.draggable.hint) {
             var position = diagram.documentToModel({ x: e.pageX, y: e.pageY });
-            var targetShape = shapeByPosition(position);
+
+            // var targetShape = shapeByPosition(position);
 
             var options = e.draggable.hint.data("shape");
+            options.positionX = position.x;
+            options.positionY = position.y;
 
             var shape = createShape(options)
             var newShape = diagram.addShape(shape);
