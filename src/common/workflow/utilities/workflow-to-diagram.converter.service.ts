@@ -25,12 +25,14 @@ export class WorkflowToDiagramConverterService {
 
       if (x.acceptStep) {
         var acceptConnection = {
-          id: index.toString,
+          id: Math.random(),
           fromShapeId: x.id,
           toShapeId: x.acceptStep,
           color: "#008000",
-          from: x.rejectStep ? "left" : "bottom",
-          to: "top"
+          from: x.id,
+          to: x.acceptStep
+          // from: x.rejectStep ? "left" : "bottom",
+          // to: "top"
           // text: "Accept"
         };
         connectionsData.push(acceptConnection);
@@ -38,12 +40,14 @@ export class WorkflowToDiagramConverterService {
 
       if (x.rejectStep) {
         var rejectConnection = {
-          id: index.toString,
+          id: Math.random(),
           fromShapeId: x.id,
           toShapeId: x.rejectStep,
           color: "#FF0000",
-          from: x.rejectStep ? "right" : "bottom",
-          to: "top"
+          from: x.id,
+          to: x.rejectStep
+          // from: x.rejectStep ? "right" : "bottom",
+          // to: "top"
           // text: "Reject"
         };
         connectionsData.push(rejectConnection);

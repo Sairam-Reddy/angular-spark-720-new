@@ -162,24 +162,24 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
         }
       });
 
-      var connectionsDataSource = localDataSource({
-        data: connectiondata,
-        schema: {
-          model: {
-            id: "id",
-            fields: {
-              id: { type: "string", editable: false },
-              from: { from: "FromShapeId", type: "number" },
-              to: { from: "ToShapeId", type: "number" },
-              color: { type: "string" }
-              // fromX: { from: "FromPointX", type: "number" },
-              // fromY: { from: "FromPointY", type: "number" },
-              // toX: { from: "ToPointX", type: "number" },
-              // toY: { from: "ToPointY", type: "number" }
-            }
-          }
-        }
-      });
+      // var connectionsDataSource = localDataSource({
+      //   data: connectiondata
+      //   // schema: {
+      //   //   model: {
+      //   //     id: "id",
+      //   //     fields: {
+      //   //       id: { type: "number", editable: false },
+      //   //       from: { from: "FromShapeId", type: "string" },
+      //   //       to: { from: "ToShapeId", type: "string" },
+      //   //       color: { type: "string" },
+      //   //       fromX: { from: "FromPointX", type: "number" },
+      //   //       fromY: { from: "FromPointY", type: "number" },
+      //   //       toX: { from: "ToPointX", type: "number" },
+      //   //       toY: { from: "ToPointY", type: "number" }
+      //   //     }
+      //   //   }
+      //   // }
+      // });
 
       var changesViewModel = kendo.observable({
         showChanges: function() {
@@ -204,7 +204,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
 
       kendo.jQuery("#diagram").kendoDiagram({
         dataSource: shapesDataSource,
-        connectionsDataSource: connectionsDataSource,
+        connectionsDataSource: connectiondata,
         layout: {
           type: "tree",
           subtype: "tipover",
@@ -219,9 +219,15 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
         },
         connectionDefaults: {
           stroke: {
-            color: "#586477",
-            width: 2
-          }
+            color: "#979797",
+            width: 1
+          },
+          // type: "polyline",
+          startCap: "FilledCircle",
+          endCap: "ArrowEnd"
+          // content: {
+          //   template: "#= label#"
+          // }
         },
         dataBound: onDataBound
       });
