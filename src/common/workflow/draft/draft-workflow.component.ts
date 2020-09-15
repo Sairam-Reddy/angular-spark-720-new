@@ -94,7 +94,8 @@ export class DraftWorkflowComponent implements AfterViewInit {
             type: "tree",
             subtype: "tipover",
             underneathHorizontalOffset: 140
-          }          
+          },
+          edit: onEdit
         })
         .getKendoDiagram();
 
@@ -135,9 +136,13 @@ export class DraftWorkflowComponent implements AfterViewInit {
         }
       }
 
+      function onEdit(e) {
+        console.log("Editing shape with model id: " + e.shape.id);
+      }
+
       function createShape(options) {
         var shapeOptions = {
-          id: options.id,
+          id: "ABC",
           x: options.positionX,
           y: options.positionY,
           width: options.width || 100,
