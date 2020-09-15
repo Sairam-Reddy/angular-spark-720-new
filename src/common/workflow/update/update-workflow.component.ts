@@ -168,7 +168,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
           model: {
             id: "id",
             fields: {
-              id: { type: "number", editable: false },
+              id: { type: "string", editable: false },
               from: { from: "FromShapeId", type: "number" },
               to: { from: "ToShapeId", type: "number" },
               color: { type: "string" }
@@ -313,12 +313,12 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       } else {
         g.append(
           new dataviz.diagram.Rectangle({
-            width: 240,
-            height: 67,
+            width: dataItem.width,
+            height: dataItem.height,
             stroke: {
               width: 0
             },
-            fill: "#e8eff7"
+            fill: dataItem.fillColor
           })
         );
 
