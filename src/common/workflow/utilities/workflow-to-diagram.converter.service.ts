@@ -26,7 +26,9 @@ export class WorkflowToDiagramConverterService {
       if (x.acceptStep) {
         var acceptConnection = {
           fromShapeId: x.id,
-          toShapeId: x.acceptStep
+          toShapeId: x.acceptStep,
+          color: "#008000",
+          text: "Accept"
         };
         connectionsData.push(acceptConnection);
       }
@@ -34,7 +36,9 @@ export class WorkflowToDiagramConverterService {
       if (x.rejectStep) {
         var rejectConnection = {
           fromShapeId: x.id,
-          toShapeId: x.rejectStep
+          toShapeId: x.rejectStep,
+          color: "#FF0000",
+          text: "Reject"
         };
         connectionsData.push(rejectConnection);
       }

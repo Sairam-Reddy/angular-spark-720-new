@@ -85,7 +85,14 @@ export class ViewWorkflowComponent implements OnInit {
       for (var j = 0; j < connectionsData.length; j++) {
         var sourceShape = diagram.getShapeById(connectionsData[j].fromShapeId);
         var targetShape = diagram.getShapeById(connectionsData[j].toShapeId);
-        diagram.connect(sourceShape, targetShape);
+        diagram.connect(sourceShape, targetShape, {
+          content: {
+            text: connectionsData[j].text
+          },
+          stroke: {
+            color: connectionsData[j].color
+          }
+        });
       }
     });
   }
