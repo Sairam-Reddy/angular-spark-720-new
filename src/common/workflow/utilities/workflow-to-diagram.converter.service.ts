@@ -12,6 +12,6 @@ import { User } from "../models/user";
 import { Workflow } from "../models/workflow";
 
 @Injectable()
-export class DiagramToWorkflowConverterService {
+export class WorkflowToDiagramConverterService {
   
   }
