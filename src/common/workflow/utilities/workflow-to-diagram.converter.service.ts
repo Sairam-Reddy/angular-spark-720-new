@@ -16,6 +16,7 @@ import { WorkflowStep } from "../models/workflow-step";
 export class WorkflowToDiagramConverterService {
   public getDiagramSource(workflow: Workflow) {
     var data = [];
+    var connectionsData = [];
 
     workflow.steps.forEach((x: WorkflowStep) => {
       var step = {
@@ -28,33 +29,24 @@ export class WorkflowToDiagramConverterService {
         width: 50
       };
       data.push(step);
+
+      if (x.acceptStep) {
+        var acceptConnection = {
+          romShapeId: x.id,
+          toShapeId: x.acceptStep
+        };
+        connectionsData.push(acceptConnection);
+      }
+
+      if (x.rejectStep) {
+        var rejectConnection = {
+          romShapeId: x.id,
+          toShapeId: x.rejectStep
+        };
+        connectionsData.push(rejectConnection);
+      }
     });
-    //   {
-    //     id: 1,
-    //     textData: "Start",
-    //     type: "circle",
-    //     positionX: 424.5,
-    //     positionY: 20,
-    //     fillColor: "green",
-    //     width: 50
-    //   },
-    //   {
-    //     id: 2,
-    //     textData: "State 1",
-    //     type: "rectangle",
-    //     positionX: 400,
-    //     positionY: 125,
-    //     height: 100,
-    //     width: 100,
-    //     path: "M 50 0 100 50 50 100 0 50 Z"
-    //   },
-    //   {
-    //     id: 3,
-    //     textData: "Completed?",
-    //     type: "circle",
-    //     positionX: 399.5,
-    //     positionY: 290
-    //   }
-    // ];
+
+    return { data: data, connectionsData: connectionsData };
   }
 }
