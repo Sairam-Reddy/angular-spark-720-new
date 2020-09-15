@@ -64,292 +64,336 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
     this.worflowService.getWorkflows().subscribe(items => {
       this.workflow = items[0];
 
-      this.drawWorkflowDiagram(
-        this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
-      );
-    });
-  }
+      // this.drawWorkflowDiagram(
+      //   this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
+      // );
 
-  drawWorkflowDiagram(workflowOptions: any) {
-    kendo.jQuery(function() {
-      var diagram = kendo
-        .jQuery("#diagram")
-        .kendoDiagram({
-          connectionDefaults: {
-            endCap: {
-              type: "ArrowEnd",
-              fill: {
-                color: "#222222"
+      function localDataSource(options) {
+        var id = options.schema.model.id;
+        var data = options.data;
+        var newId = -1;
+        var created, updated, deleted;
+
+        var dataSource = new kendo.data.DataSource(
+          kendo.jQuery.extend(
+            true,
+            {
+              transport: {
+                read: function(e) {
+                  created = {};
+                  updated = {};
+                  deleted = {};
+
+                  e.success(data || []);
+                },
+
+                update: function(e) {
+                  var item = e.data;
+                  if (!created[item[id]]) {
+                    updated[item[id]] = item;
+                  }
+                  e.success();
+                },
+
+                destroy: function(e) {
+                  var idValue = e.data[id];
+                  if (!created[idValue]) {
+                    deleted[idValue] = e.data;
+                  } else {
+                    delete created[idValue];
+                  }
+                  e.success();
+                },
+                create: function(e) {
+                  var item = e.data;
+                  item[id] = newId--;
+                  created[item[id]] = kendo.jQuery.extend(true, {}, item);
+
+                  e.success(item);
+                }
               }
             },
-            hover: {
-              stroke: {
-                color: "#02DA10",
-                fill: "#02DA10"
+            options
+          )
+        );
+
+        dataSource.getChanges = function() {
+          return {
+            deleted: toArray(deleted),
+            created: toArray(created),
+            updated: toArray(updated)
+          };
+        };
+
+        return dataSource;
+      }
+
+      function toArray(changes) {
+        var result = [];
+        for (var id in changes) {
+          result.push(changes[id]);
+        }
+        return result;
+      }
+
+      function createDiagram() {
+        var shapesDataSource = localDataSource({
+          data: [
+            {
+              Id: 1,
+              JobTitle: "President"
+            },
+            {
+              Id: 2,
+              JobTitle: "VP Finance",
+              Color: "#3399cc"
+            },
+            {
+              Id: 3,
+              JobTitle: "VP Customer Relations",
+              Color: "#3399cc"
+            },
+            {
+              Id: 4,
+              JobTitle: "VP Human Resources",
+              Color: "#3399cc"
+            }
+          ],
+          schema: {
+            model: {
+              id: "Id",
+              fields: {
+                Id: { type: "number", editable: false },
+                JobTitle: { type: "string" },
+                Color: { type: "string" }
               }
             }
           }
-        })
-        .getKendoDiagram();
+        });
 
-      function createShape(options) {
-        var shapeOptions = {
-          id: options.id,
-          x: options.positionX,
-          y: options.positionY,
-          width: options.width || 100,
-          height: options.height || 50,
-          type: options.type,
-          path: options.path || undefined,
-          content: {
-            text: options.textData || undefined,
-            color: options.textData.length > 15 ? "transparent" : "#fff"
-          },
-          fill: options.fillColor || "#0088CC"
-        };
-
-        var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
-
-        return shape;
-      }
-
-      var data = workflowOptions.data;
-      var connectionsData = workflowOptions.connectionsData;
-
-      for (var i = 0; i < data.length; i++) {
-        diagram.addShape(createShape(data[i]));
-      }
-
-      for (var j = 0; j < connectionsData.length; j++) {
-        var sourceShape = diagram.getShapeById(connectionsData[j].fromShapeId);
-        var targetShape = diagram.getShapeById(connectionsData[j].toShapeId);
-        diagram.connect(sourceShape, targetShape, {
-          content: {
-            text: connectionsData[j].text
-          },
-          stroke: {
-            color: connectionsData[j].color
+        var connectionsDataSource = localDataSource({
+          data: [
+            {
+              Id: 1,
+              FromShapeId: 1,
+              ToShapeId: 2
+            },
+            {
+              Id: 2,
+              FromShapeId: 1,
+              ToShapeId: 3
+            },
+            {
+              Id: 3,
+              FromShapeId: 1,
+              ToShapeId: 4
+            }
+          ],
+          schema: {
+            model: {
+              id: "Id",
+              fields: {
+                Id: { type: "number", editable: false },
+                from: { from: "FromShapeId", type: "number" },
+                to: { from: "ToShapeId", type: "number" },
+                fromX: { from: "FromPointX", type: "number" },
+                fromY: { from: "FromPointY", type: "number" },
+                toX: { from: "ToPointX", type: "number" },
+                toY: { from: "ToPointY", type: "number" }
+              }
+            }
           }
         });
+
+        var changesViewModel = kendo.observable({
+          showChanges: function() {
+            var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
+            this.set("shapes", diagram.dataSource.getChanges());
+            this.set("connections", diagram.connectionsDataSource.getChanges());
+            this.set("visible", true);
+          },
+          shapes: {
+            deleted: [],
+            created: [],
+            updated: []
+          },
+          connections: {
+            deleted: [],
+            created: [],
+            updated: []
+          }
+        });
+
+        kendo.bind(kendo.jQuery("#changes"), changesViewModel);
+
+        kendo.jQuery("#diagram").kendoDiagram({
+          dataSource: shapesDataSource,
+          connectionsDataSource: connectionsDataSource,
+          layout: {
+            type: "tree",
+            subtype: "tipover",
+            underneathHorizontalOffset: 140
+          },
+          shapeDefaults: {
+            visual: visualTemplate,
+            content: {
+              template: "#= dataItem.JobTitle #",
+              fontSize: 17
+            }
+          },
+          connectionDefaults: {
+            stroke: {
+              color: "#586477",
+              width: 2
+            }
+          },
+          dataBound: onDataBound
+        });
+
+        // kendo.jQuery("#shapesPanelBar").kendoDraggable({
+        //   filter: ".shape-item",
+        //   hint: function(element) {
+        //     return element.clone();
+        //   }
+        // });
+
+        // kendo.jQuery("#diagram").kendoDropTarget({
+        //   drop: function(e) {
+        //     if (e.draggable.hint) {
+        //       var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
+        //       var position = diagram.documentToModel({ x: e.pageX, y: e.pageY });
+
+        //       // var targetShape = shapeByPosition(position);
+
+        //       var options = e.draggable.hint.data("shape");
+        //       options.positionX = position.x;
+        //       options.positionY = position.y;
+
+        //       var shape = createShape(options);
+        //       var newShape = diagram.addShape(shape);
+        //       // diagram.connect(targetShape, newShape);
+        //       diagram.layout(diagram.options.layout);
+        //     }
+        //   }
+        // });
+
+        // function createShape(options) {
+        //   var shapeOptions = {
+        //     id: "ABC",
+        //     x: options.positionX,
+        //     y: options.positionY,
+        //     width: options.width || 100,
+        //     height: options.height || 50,
+        //     type: options.type,
+        //     path: options.path || undefined,
+        //     content: {
+        //       text: options.textData || undefined,
+        //       color: "#fff"
+        //     },
+        //     fill: options.fillColor || "#0088CC",
+        //     connectors: getShapeConnectors(options)
+        //   };
+
+        //   var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
+
+        //   return shape;
+        // }
+
+        function getShapeConnectors(options) {
+          var cnctrs = [];
+          if (options.type === "circle") {
+            cnctrs.push({ name: "bottom" });
+          }
+          if (options.type === "rectangle") {
+            cnctrs.push(
+              { name: "bottom", stroke: { dashType: "dash" } },
+              { name: "left" },
+              { name: "right" }
+            );
+          }
+          if (options.path === "M 50 0 100 50 50 100 0 50 Z") {
+            cnctrs.push({ name: "left" }, { name: "right" });
+          }
+          return cnctrs;
+        }
+      }
+
+      kendo.jQuery(document).ready(createDiagram);
+
+      function visualTemplate(options) {
+        var dataviz = kendo.dataviz;
+        var g = new dataviz.diagram.Group();
+        var dataItem = options.dataItem;
+
+        if (dataItem.JobTitle === "President") {
+          g.append(
+            new dataviz.diagram.Circle({
+              radius: 60,
+              stroke: {
+                width: 2,
+                color: dataItem.Color || "#586477"
+              },
+              fill: "#e8eff7"
+            })
+          );
+        } else {
+          g.append(
+            new dataviz.diagram.Rectangle({
+              width: 240,
+              height: 67,
+              stroke: {
+                width: 0
+              },
+              fill: "#e8eff7"
+            })
+          );
+
+          g.append(
+            new dataviz.diagram.Rectangle({
+              width: 8,
+              height: 67,
+              fill: dataItem.Color,
+              stroke: {
+                width: 0
+              }
+            })
+          );
+        }
+
+        return g;
+      }
+
+      function onDataBound(e) {
+        this.bringIntoView(this.shapes);
       }
     });
   }
 
-  ngAfterViewInit() {}
-
-  // ngAfterViewInit() {
-  //   function localDataSource(options) {
-  //     var id = options.schema.model.id;
-  //     var data = options.data;
-  //     var newId = -1;
-  //     var created, updated, deleted;
-
-  //     var dataSource = new kendo.data.DataSource(
-  //       kendo.jQuery.extend(
-  //         true,
-  //         {
-  //           transport: {
-  //             read: function(e) {
-  //               created = {};
-  //               updated = {};
-  //               deleted = {};
-
-  //               e.success(data || []);
-  //             },
-
-  //             update: function(e) {
-  //               var item = e.data;
-  //               if (!created[item[id]]) {
-  //                 updated[item[id]] = item;
-  //               }
-  //               e.success();
-  //             },
-
-  //             destroy: function(e) {
-  //               var idValue = e.data[id];
-  //               if (!created[idValue]) {
-  //                 deleted[idValue] = e.data;
-  //               } else {
-  //                 delete created[idValue];
-  //               }
-  //               e.success();
-  //             },
-  //             create: function(e) {
-  //               var item = e.data;
-  //               item[id] = newId--;
-  //               created[item[id]] = kendo.jQuery.extend(true, {}, item);
-
-  //               e.success(item);
+  // drawWorkflowDiagram(workflowOptions: any) {
+  //   kendo.jQuery(function() {
+  //     var diagram = kendo
+  //       .jQuery("#diagram")
+  //       .kendoDiagram({
+  //         connectionDefaults: {
+  //           endCap: {
+  //             type: "ArrowEnd",
+  //             fill: {
+  //               color: "#222222"
+  //             }
+  //           },
+  //           hover: {
+  //             stroke: {
+  //               color: "#02DA10",
+  //               fill: "#02DA10"
   //             }
   //           }
-  //         },
-  //         options
-  //       )
-  //     );
-
-  //     dataSource.getChanges = function() {
-  //       return {
-  //         deleted: toArray(deleted),
-  //         created: toArray(created),
-  //         updated: toArray(updated)
-  //       };
-  //     };
-
-  //     return dataSource;
-  //   }
-
-  //   function toArray(changes) {
-  //     var result = [];
-  //     for (var id in changes) {
-  //       result.push(changes[id]);
-  //     }
-  //     return result;
-  //   }
-
-  //   function createDiagram() {
-  //     var shapesDataSource = localDataSource({
-  //       data: [
-  //         {
-  //           Id: 1,
-  //           JobTitle: "President"
-  //         },
-  //         {
-  //           Id: 2,
-  //           JobTitle: "VP Finance",
-  //           Color: "#3399cc"
-  //         },
-  //         {
-  //           Id: 3,
-  //           JobTitle: "VP Customer Relations",
-  //           Color: "#3399cc"
-  //         },
-  //         {
-  //           Id: 4,
-  //           JobTitle: "VP Human Resources",
-  //           Color: "#3399cc"
   //         }
-  //       ],
-  //       schema: {
-  //         model: {
-  //           id: "Id",
-  //           fields: {
-  //             Id: { type: "number", editable: false },
-  //             JobTitle: { type: "string" },
-  //             Color: { type: "string" }
-  //           }
-  //         }
-  //       }
-  //     });
-
-  //     var connectionsDataSource = localDataSource({
-  //       data: [
-  //         {
-  //           Id: 1,
-  //           FromShapeId: 1,
-  //           ToShapeId: 2
-  //         },
-  //         {
-  //           Id: 2,
-  //           FromShapeId: 1,
-  //           ToShapeId: 3
-  //         },
-  //         {
-  //           Id: 3,
-  //           FromShapeId: 1,
-  //           ToShapeId: 4
-  //         }
-  //       ],
-  //       schema: {
-  //         model: {
-  //           id: "Id",
-  //           fields: {
-  //             Id: { type: "number", editable: false },
-  //             from: { from: "FromShapeId", type: "number" },
-  //             to: { from: "ToShapeId", type: "number" },
-  //             fromX: { from: "FromPointX", type: "number" },
-  //             fromY: { from: "FromPointY", type: "number" },
-  //             toX: { from: "ToPointX", type: "number" },
-  //             toY: { from: "ToPointY", type: "number" }
-  //           }
-  //         }
-  //       }
-  //     });
-
-  //     var changesViewModel = kendo.observable({
-  //       showChanges: function() {
-  //         var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
-  //         this.set("shapes", diagram.dataSource.getChanges());
-  //         this.set("connections", diagram.connectionsDataSource.getChanges());
-  //         this.set("visible", true);
-  //       },
-  //       shapes: {
-  //         deleted: [],
-  //         created: [],
-  //         updated: []
-  //       },
-  //       connections: {
-  //         deleted: [],
-  //         created: [],
-  //         updated: []
-  //       }
-  //     });
-
-  //     kendo.bind(kendo.jQuery("#changes"), changesViewModel);
-
-  //     kendo.jQuery("#diagram").kendoDiagram({
-  //       dataSource: shapesDataSource,
-  //       connectionsDataSource: connectionsDataSource,
-  //       layout: {
-  //         type: "tree",
-  //         subtype: "tipover",
-  //         underneathHorizontalOffset: 140
-  //       },
-  //       shapeDefaults: {
-  //         visual: visualTemplate,
-  //         content: {
-  //           template: "#= dataItem.JobTitle #",
-  //           fontSize: 17
-  //         }
-  //       },
-  //       connectionDefaults: {
-  //         stroke: {
-  //           color: "#586477",
-  //           width: 2
-  //         }
-  //       },
-  //       dataBound: onDataBound
-  //     });
-
-  //     kendo.jQuery("#shapesPanelBar").kendoDraggable({
-  //       filter: ".shape-item",
-  //       hint: function(element) {
-  //         return element.clone();
-  //       }
-  //     });
-
-  //     kendo.jQuery("#diagram").kendoDropTarget({
-  //       drop: function(e) {
-  //         if (e.draggable.hint) {
-  //           var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
-  //           var position = diagram.documentToModel({ x: e.pageX, y: e.pageY });
-
-  //           // var targetShape = shapeByPosition(position);
-
-  //           var options = e.draggable.hint.data("shape");
-  //           options.positionX = position.x;
-  //           options.positionY = position.y;
-
-  //           var shape = createShape(options);
-  //           var newShape = diagram.addShape(shape);
-  //           // diagram.connect(targetShape, newShape);
-  //           diagram.layout(diagram.options.layout);
-  //         }
-  //       }
-  //     });
+  //       })
+  //       .getKendoDiagram();
 
   //     function createShape(options) {
   //       var shapeOptions = {
-  //         id: "ABC",
+  //         id: options.id,
   //         x: options.positionX,
   //         y: options.positionY,
   //         width: options.width || 100,
@@ -358,10 +402,9 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
   //         path: options.path || undefined,
   //         content: {
   //           text: options.textData || undefined,
-  //           color: "#fff"
+  //           color: options.textData.length > 15 ? "transparent" : "#fff"
   //         },
-  //         fill: options.fillColor || "#0088CC",
-  //         connectors: getShapeConnectors(options)
+  //         fill: options.fillColor || "#0088CC"
   //       };
 
   //       var shape = new kendo.dataviz.diagram.Shape(shapeOptions);
@@ -369,74 +412,29 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
   //       return shape;
   //     }
 
-  //     function getShapeConnectors(options) {
-  //       var cnctrs = [];
-  //       if (options.type === "circle") {
-  //         cnctrs.push({ name: "bottom" });
-  //       }
-  //       if (options.type === "rectangle") {
-  //         cnctrs.push(
-  //           { name: "bottom", stroke: { dashType: "dash" } },
-  //           { name: "left" },
-  //           { name: "right" }
-  //         );
-  //       }
-  //       if (options.path === "M 50 0 100 50 50 100 0 50 Z") {
-  //         cnctrs.push({ name: "left" }, { name: "right" });
-  //       }
-  //       return cnctrs;
-  //     }
-  //   }
+  //     var data = workflowOptions.data;
+  //     var connectionsData = workflowOptions.connectionsData;
 
-  //   kendo.jQuery(document).ready(createDiagram);
-
-  //   function visualTemplate(options) {
-  //     var dataviz = kendo.dataviz;
-  //     var g = new dataviz.diagram.Group();
-  //     var dataItem = options.dataItem;
-
-  //     if (dataItem.JobTitle === "President") {
-  //       g.append(
-  //         new dataviz.diagram.Circle({
-  //           radius: 60,
-  //           stroke: {
-  //             width: 2,
-  //             color: dataItem.Color || "#586477"
-  //           },
-  //           fill: "#e8eff7"
-  //         })
-  //       );
-  //     } else {
-  //       g.append(
-  //         new dataviz.diagram.Rectangle({
-  //           width: 240,
-  //           height: 67,
-  //           stroke: {
-  //             width: 0
-  //           },
-  //           fill: "#e8eff7"
-  //         })
-  //       );
-
-  //       g.append(
-  //         new dataviz.diagram.Rectangle({
-  //           width: 8,
-  //           height: 67,
-  //           fill: dataItem.Color,
-  //           stroke: {
-  //             width: 0
-  //           }
-  //         })
-  //       );
+  //     for (var i = 0; i < data.length; i++) {
+  //       diagram.addShape(createShape(data[i]));
   //     }
 
-  //     return g;
-  //   }
-
-  //   function onDataBound(e) {
-  //     this.bringIntoView(this.shapes);
-  //   }
+  //     for (var j = 0; j < connectionsData.length; j++) {
+  //       var sourceShape = diagram.getShapeById(connectionsData[j].fromShapeId);
+  //       var targetShape = diagram.getShapeById(connectionsData[j].toShapeId);
+  //       diagram.connect(sourceShape, targetShape, {
+  //         content: {
+  //           text: connectionsData[j].text
+  //         },
+  //         stroke: {
+  //           color: connectionsData[j].color
+  //         }
+  //       });
+  //     }
+  //   });
   // }
+
+  ngAfterViewInit() {}
 
   addAdvancedStep(stepName: string) {
     var diagram = kendo.jQuery("#diagram").getKendoDiagram();
