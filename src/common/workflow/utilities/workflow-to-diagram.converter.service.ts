@@ -21,12 +21,13 @@ export class WorkflowToDiagramConverterService {
       var step = {
         id: x.id,
         textData: x.name,
-        type: "circle",
+        type: "rectangle",
         positionX: 424.5,
         positionY: 20,
         fillColor: "green",
         width: 50
       };
+      data.push(step);
     });
     //   {
     //     id: 1,
