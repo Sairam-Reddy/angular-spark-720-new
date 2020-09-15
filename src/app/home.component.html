@@ -16,7 +16,7 @@
 	<div class="workflow-viewer__content"> Create Workflow </div>
 	</mat-card>  
 
-  <mat-card  class="workflow-viewer__update">
+  <mat-card [routerLink]="['update-workflow']" class="workflow-viewer__update">
 	  <mat-icon [svgIcon]="'algorithm'" class="workflow-viewer__icon" aria-hidden="false"></mat-icon>
 	<div class="workflow-viewer__content"> Update Workflow </div>
 	</mat-card>    

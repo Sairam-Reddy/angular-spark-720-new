@@ -38,7 +38,8 @@ import { HomeComponent } from "./home.component";
     MatIconModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    DashboardModule
+    DashboardModule,
+    UpdateWorkflowModule
   ],
   declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent]
