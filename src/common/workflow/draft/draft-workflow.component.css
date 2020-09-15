@@ -47,6 +47,10 @@
 .example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
+
+a {
+    text-decoration: none;
+}
  
  
  /* #shapesPanelBar .k-panel .k-state-hover,
