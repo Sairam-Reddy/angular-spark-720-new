@@ -14,59 +14,19 @@ export class UpdateWorkflowComponent implements AfterViewInit {
   ngAfterViewInit() {
     var data = [
       {
-        firstName: "Antonio",
-        lastName: "Moreno",
-        image: "antonio.jpg",
+        firsLastName: "Antonio Moreno",
         title: "Team Lead",
         colorScheme: "#1696d3",
         items: [
           {
-            firstName: "Elizabeth",
-            image: "elizabeth.jpg",
-            lastName: "Brown",
+            firsLastName: "Elizabeth Brown",
             title: "Design Lead",
-            colorScheme: "#ef6944",
-            items: [
-              {
-                firstName: "Ann",
-                lastName: "Devon",
-                image: "ann.jpg",
-                title: "UI Designer",
-                colorScheme: "#ef6944"
-              }
-            ]
+            colorScheme: "#ef6944"
           },
           {
-            firstName: "Diego",
-            lastName: "Roel",
-            image: "diego.jpg",
-            title: "QA Engineer",
-            colorScheme: "#ee587b",
-            items: [
-              {
-                firstName: "Fran",
-                lastName: "Wilson",
-                image: "fran.jpg",
-                title: "QA Intern",
-                colorScheme: "#ee587b"
-              }
-            ]
-          },
-          {
-            firstName: "Felipe",
-            lastName: "Izquiedro",
-            image: "felipe.jpg",
+            firsLastName: "Felipe Izquiedro",
             title: "Senior Developer",
-            colorScheme: "#75be16",
-            items: [
-              {
-                firstName: "Daniel",
-                lastName: "Tonini",
-                image: "daniel.jpg",
-                title: "Developer",
-                colorScheme: "#75be16"
-              }
-            ]
+            colorScheme: "#75be16"
           }
         ]
       }
@@ -76,11 +36,6 @@ export class UpdateWorkflowComponent implements AfterViewInit {
       var dataviz = kendo.dataviz;
       var g = new dataviz.diagram.Group();
       var dataItem = options.dataItem;
-
-      g.drawingElement.options.tooltip = {
-        content: dataItem.title,
-        shared: true
-      };
 
       g.append(
         new dataviz.diagram.Rectangle({
@@ -111,58 +66,93 @@ export class UpdateWorkflowComponent implements AfterViewInit {
 
       g.append(
         new dataviz.diagram.TextBlock({
-          text: dataItem.firstName + " " + dataItem.lastName,
-          x: 85,
-          y: 30,
+          text: dataItem.firsLastName,
+          x: 55,
+          y: 20,
           fill: "#fff"
         })
       );
 
       g.append(
-        new dataviz.diagram.Image({
-          source: "../content/dataviz/diagram/people/" + dataItem.image,
-          x: 3,
-          y: 3,
-          width: 68,
-          height: 68
+        new dataviz.diagram.TextBlock({
+          text: dataItem.title,
+          x: 55,
+          y: 40,
+          fill: "#fff"
         })
       );
-
       return g;
     }
 
-    kendo.jQuery("#diagram").kendoDiagram({
-      dataSource: new kendo.data.HierarchicalDataSource({
-        data: data,
-        schema: {
-          model: {
-            children: "items"
+    function createDiagram() {
+      kendo.jQuery("#diagram").kendoDiagram({
+        dataSource: new kendo.data.HierarchicalDataSource({
+          data: data,
+          schema: {
+            model: {
+              children: "items"
+            }
+          }
+        }),
+        layout: {
+          type: "layered"
+        },
+        shapeDefaults: {
+          visual: visualTemplate
+        },
+        connectionDefaults: {
+          stroke: {
+            color: "#979797",
+            width: 2
           }
         }
-      }),
-      layout: {
-        type: "layered"
-      },
-      shapeDefaults: {
-        visual: visualTemplate
-      },
-      connectionDefaults: {
-        endCap: {
-          type: "ArrowEnd",
-          fill: {
-            color: "#222222"
+      });
+
+      var diagram = kendo.jQuery("#diagram").getKendoDiagram();
+      diagram.bringIntoView(diagram.shapes);
+
+      var contextDataItem;
+
+      kendo.jQuery("#menu").kendoContextMenu({
+        target: "#diagram",
+        filter: "g",
+        open: function(e) {
+          if (e.event) {
+            try {
+              var shapes = diagram.shapes;
+              var connections = diagram.connections;
+
+              var point = diagram.documentToModel(
+                new kendo.dataviz.diagram.Point(e.event.pageX, e.event.pageY)
+              );
+
+              //Cancel the menu opening when the target is a connection
+              for (var i = connections.length - 1; i >= 0; i--) {
+                if (connections[i].bounds().contains(point)) {
+                  e.preventDefault();
+                }
+              }
+              //Find the target shape
+              for (var i = shapes.length - 1; i >= 0; i--) {
+                if (shapes[i].bounds().contains(point)) {
+                  contextDataItem = shapes[i].dataItem;
+                  break;
+                }
+              }
+            } catch (e) {
+              alert(e);
+            }
           }
         },
-        hover: {
-          stroke: {
-            color: "#02DA10",
-            fill: "#02DA10"
-          }
+        select: function(e) {
+          var itemText = kendo.jQuery(e.item).text();
+          alert(
+            kendo.format("{0}: {1}", itemText, contextDataItem.firsLastName)
+          );
         }
-      }
-    });
+      });
+    }
 
-    var diagram = kendo.jQuery("#diagram").getKendoDiagram();
-    diagram.bringIntoView(diagram.shapes);
+    kendo.jQuery(document).ready(createDiagram);
   }
 }

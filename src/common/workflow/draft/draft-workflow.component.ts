@@ -94,7 +94,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
             type: "tree",
             subtype: "tipover",
             underneathHorizontalOffset: 140
-          }
+          }          
         })
         .getKendoDiagram();
 
