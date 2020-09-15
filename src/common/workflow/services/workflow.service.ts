@@ -7,6 +7,7 @@ import {
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
 import "rxjs/add/operator/map";
+
 import { User } from "../models/user";
 import { Workflow } from "../models/workflow";
 
