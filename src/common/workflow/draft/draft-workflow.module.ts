@@ -14,6 +14,7 @@ import { DraftWorkflowComponent } from "./draft-workflow.component";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { MatDialogModule } from "@angular/material/dialog";
+import { SaveDialogComponent } from "../save-dialog/save-dialog.component";
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatIconModule,
     MatDialogModule
   ],
-  declarations: [DraftWorkflowComponent],
+  declarations: [DraftWorkflowComponent, SaveDialogComponent],
   exports: [DraftWorkflowComponent]
 })
 export class DraftWorkflowModule {}

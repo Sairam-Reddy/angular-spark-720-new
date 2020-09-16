@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material/icon";
 import { MatDialog } from "@angular/material/dialog";
+import { SaveDialogComponent } from "../save-dialog/save-dialog.component";
 
 declare var kendo: any;
 
@@ -14,7 +15,11 @@ declare var kendo: any;
 export class DraftWorkflowComponent implements AfterViewInit {
   fileUrl;
 
-  constructor(iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private dialog: MatDialog) {
+  constructor(
+    iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog
+  ) {
     iconRegistry.addSvgIcon(
       "new",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -223,7 +228,7 @@ export class DraftWorkflowComponent implements AfterViewInit {
   }
 
   save() {
-    
+    this.dialog.open(SaveDialogComponent);
   }
 
   saveAsJson() {
