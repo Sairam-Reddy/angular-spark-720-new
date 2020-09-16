@@ -75,12 +75,162 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       createDiagram(data, connectiondata);
     });
 
-    kendo.jQuery(".colorPicker").kendoColorPicker({
-      value: "#ffffff",
-      buttons: false
-    });
+    var Shape = kendo.dataviz.diagram.Shape,
+      Connection = kendo.dataviz.diagram.Connection,
+      Rect = kendo.dataviz.diagram.Rect,
+      Point = kendo.dataviz.diagram.Point,
+      selected;
 
-    //  kendo.jQuery("#canvasProperties").on("change", canvasPropertiesChange);
+    kendo.jQuery("#canvasProperties").on("change", canvasPropertiesChange);
+
+    function canvasPropertiesChange() {
+      var diagram = kendo.jQuery("#diagram").data("kendoDiagram");
+      diagram.element.css(
+        "background-color",
+        kendo
+          .jQuery("#canvasBackgroundColorPicker")
+          .getKendoColorPicker()
+          .value()
+      );
+
+      var layoutMapping = {
+        TreeDown: {
+          type: "tree",
+          subtype: "down"
+        },
+        TreeUp: {
+          type: "tree",
+          subtype: "up"
+        },
+        TreeLeft: {
+          type: "tree",
+          subtype: "left"
+        },
+        TreeRight: {
+          type: "tree",
+          subtype: "right"
+        },
+        RadialTree: {
+          type: "tree",
+          subtype: "radial"
+        },
+        TipOverTree: {
+          type: "tree",
+          subtype: "typeover"
+        },
+        LayeredHorizontal: {
+          type: "layered",
+          subtype: "horizontal"
+        },
+        LayeredVertical: {
+          type: "layered",
+          subtype: "vertial"
+        },
+        ForceDirected: {
+          type: "force",
+          subtype: "directed"
+        },
+        MindmapVertical: {
+          type: "tree",
+          subtype: "mindmapvertical"
+        },
+        MindmapHorizontal: {
+          type: "tree",
+          subtype: "mindmaphorizontal"
+        }
+      };
+
+      var layout =
+        layoutMapping[
+          kendo
+            .jQuery("#canvasLayout")
+            .getKendoDropDownList()
+            .value()
+        ];
+
+      diagram.layout({
+        type: layout.type,
+        subtype: layout.subtype,
+        animation: true
+      });
+    }
+
+    kendo.jQuery("#shapeProperties").on("change", shapePropertiesChange);
+
+    function shapePropertiesChange() {
+      var elements = selected || [],
+        options = {
+          fill: kendo
+            .jQuery("#shapeBackgroundColorPicker")
+            .getKendoColorPicker()
+            .value(),
+          stroke: {
+            color: kendo
+              .jQuery("#shapeStrokeColorPicker")
+              .getKendoColorPicker()
+              .value(),
+            width: kendo
+              .jQuery("#shapeStrokeWidth")
+              .getKendoNumericTextBox()
+              .value()
+          }
+        },
+        bounds = new Rect(
+          kendo
+            .jQuery("#shapePositionX")
+            .getKendoNumericTextBox()
+            .value(),
+          kendo
+            .jQuery("#shapePositionY")
+            .getKendoNumericTextBox()
+            .value(),
+          kendo
+            .jQuery("#shapeWidth")
+            .getKendoNumericTextBox()
+            .value(),
+          kendo
+            .jQuery("#shapeHeight")
+            .getKendoNumericTextBox()
+            .value()
+        ),
+        element,
+        i;
+
+      for (i = 0; i < elements.length; i++) {
+        element = elements[i];
+        if (element instanceof Shape) {
+          element.redraw(options);
+
+          element.bounds(bounds);
+        }
+      }
+    }
+
+    function connectionPropertiesChange() {
+      var elements = selected || [],
+        options = {
+          startCap: kendo
+            .jQuery("#connectionStartCap")
+            .getKendoDropDownList()
+            .value(),
+          endCap: kendo
+            .jQuery("#connectionEndCap")
+            .getKendoDropDownList()
+            .value()
+        },
+        element;
+
+      for (let i: number = 0; i < elements.length; i++) {
+        element = elements[i];
+        if (element instanceof Connection) {
+          element.redraw(options);
+        }
+      }
+    }
+
+    kendo
+      .jQuery("#connectionProperties")
+      .on("change", connectionPropertiesChange);
 
     function localDataSource(options) {
       var id = options.schema.model.id;
@@ -237,7 +387,105 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
           //   template: "#= label#"
           // }
         },
-        dataBound: onDataBound
+        dataBound: onDataBound,
+        select: function(e) {
+          if (e.selected.length) {
+            selected = e.selected;
+            var element = e.selected[0];
+            if (element instanceof Shape) {
+              updateShapeProperties(element.options);
+            } else {
+              updateConnectionProperties(element.options);
+            }
+          }
+        }
+      });
+
+      function updateShapeProperties(shape) {
+        kendo
+          .jQuery("#shapeBackgroundColorPicker")
+          .getKendoColorPicker()
+          .value(kendo.parseColor(shape.background));
+        kendo
+          .jQuery("#shapeStrokeColorPicker")
+          .getKendoColorPicker()
+          .value(kendo.parseColor(shape.stroke.color));
+        kendo
+          .jQuery("#shapeStrokeWidth")
+          .getKendoNumericTextBox()
+          .value(shape.stroke.width);
+        kendo
+          .jQuery("#shapeWidth")
+          .getKendoNumericTextBox()
+          .value(shape.width);
+        kendo
+          .jQuery("#shapeHeight")
+          .getKendoNumericTextBox()
+          .value(shape.height);
+        kendo
+          .jQuery("#shapePositionX")
+          .getKendoNumericTextBox()
+          .value(shape.x);
+        kendo
+          .jQuery("#shapePositionY")
+          .getKendoNumericTextBox()
+          .value(shape.y);
+      }
+
+      function updateConnectionProperties(shape) {
+        kendo
+          .jQuery("#connectionStartCap")
+          .getKendoDropDownList()
+          .value(shape.startCap);
+        kendo
+          .jQuery("#connectionEndCap")
+          .getKendoDropDownList()
+          .value(shape.endCap);
+      }
+
+      kendo.jQuery("#canvasLayout").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: [
+          { value: "TreeDown", text: "Tree Down" },
+          { value: "TreeUp", text: "Tree Up" },
+          { value: "TreeLeft", text: "Tree Left" },
+          { value: "TreeRight", text: "Tree Right" },
+          { value: "RadialTree", text: "Radial Tree" },
+          { value: "TipOverTree", text: "Tip-Over Tree" },
+          { value: "LayeredHorizontal", text: "Layered Horizontal" },
+          { value: "LayeredVertical", text: "Layered Vertical" },
+          { value: "ForceDirected", text: "Force directed" },
+          { value: "MindmapVertical", text: "Mindmap Vertical" },
+          { value: "MindmapHorizontal", text: "Mindmap Horizontal" }
+        ]
+      });
+
+      kendo.jQuery("#connectionStartCap").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: [
+          { value: "None", text: "None" },
+          { value: "ArrowStart", text: "Arrow Start" },
+          { value: "ArrowEnd", text: "Arrow End" },
+          { value: "FilledCircle", text: "Filed Circle" }
+        ]
+      });
+
+      kendo.jQuery("#connectionEndCap").kendoDropDownList({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: [
+          { value: "None", text: "None" },
+          { value: "ArrowStart", text: "Arrow Start" },
+          { value: "ArrowEnd", text: "Arrow End" },
+          { value: "FilledCircle", text: "Filed Circle" }
+        ]
+      });
+
+      kendo.jQuery(".colorPicker").kendoColorPicker({
+        value: "#ffffff",
+        buttons: false
       });
 
       // kendo.jQuery("#shapesPanelBar").kendoDraggable({
