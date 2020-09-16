@@ -5,23 +5,41 @@
 <div class="charts">
 
 	<mat-card [hidden]="!doughNutChart" class="chart">
-		<mat-card-title>
-      <mat-form-field appearance="fill">
-			<mat-select [(value)]="selected">>
-				<mat-option *ngFor="let project of projects" [value]="project">
-					{{project}}
-				</mat-option>
-			</mat-select>
-      </mat-form-field>
-		</mat-card-title>
+		<mat-card-subtitle>
+			<mat-form-field appearance="fill">
+				<mat-select [(value)]="selected">
+					<mat-option *ngFor="let project of projects" [value]="project">
+						{{project}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card-subtitle>
 		<canvas id="doughNutCanvas"></canvas>
 	</mat-card>
 
 	<mat-card [hidden]="!barChart" class="chart">
+		<mat-card-subtitle>
+			<mat-form-field appearance="fill">
+				<mat-select [(value)]="selected">
+					<mat-option *ngFor="let project of projects" [value]="project">
+						{{project}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card-subtitle>
 		<canvas id="barCanvas"></canvas>
 	</mat-card>
 
 	<mat-card [hidden]="!barChart" class="chart">
+		<mat-card-subtitle>
+			<mat-form-field appearance="fill">
+				<mat-select [(value)]="selected">
+					<mat-option *ngFor="let project of projects" [value]="project">
+						{{project}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card-subtitle>
 		<canvas id="barCanvas"></canvas>
 	</mat-card>
 
