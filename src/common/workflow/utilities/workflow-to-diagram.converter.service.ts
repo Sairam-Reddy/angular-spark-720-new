@@ -83,7 +83,7 @@ export class WorkflowToDiagramConverterService {
 
     if (wfStep.recipients) {
       wfStep.recipients.forEach((x: string) => {
-        const user: User = users.find((y: User) => x === y.id)[0];
+        const user: User = users.find((y: User) => x === y.name);
         step.recipients.push(user.name);
       });
     }

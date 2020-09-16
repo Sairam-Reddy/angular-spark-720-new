@@ -26,9 +26,9 @@ export class ViewWorkflowComponent implements OnInit {
     this.worflowService.getWorkflows().subscribe(items => {
       this.workflow = items[0];
 
-      this.drawWorkflowDiagram(
-        this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
-      );
+      // this.drawWorkflowDiagram(
+      //   this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
+      // );
     });
   }
 
