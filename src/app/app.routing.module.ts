@@ -7,6 +7,7 @@ import { HomeComponent } from "./home.component";
 import { UpdateWorkflowComponent } from "../common/workflow/update/update-workflow.component";
 import { ViewWorkflowComponent } from "../common/workflow/view/view-workflow.component";
 import { TaskListComponent } from "../common/workflow/task-list/task-list.component";
+import { WorkflowListComponent } from "../common/workflow/workflow-list/workflow-list.component";
 
 const routes: Routes = [
   {

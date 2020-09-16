@@ -14,7 +14,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { WorkflowService } from "../services/workflow.service";
 import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
-import { ToDoListComponent } from "../toDoList/todo-list.component";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
