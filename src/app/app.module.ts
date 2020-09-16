@@ -22,6 +22,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { DashboardModule } from "../common/dashboard/dashboard.module";
 import { HomeComponent } from "./home.component";
+import { TaskListModule } from "../common/workflow/task-list/task-list.module";
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { HomeComponent } from "./home.component";
     BrowserAnimationsModule,
     DashboardModule,
     UpdateWorkflowModule,
-    ViewWorkflowModule
+    ViewWorkflowModule,
+    TaskListModule
   ],
   declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent]

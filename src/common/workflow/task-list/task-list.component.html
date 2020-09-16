@@ -1,0 +1,12 @@
+
+	<mat-card class="todo-list">
+      <mat-icon [svgIcon]="'user'" class="todo-list__icon" aria-hidden="false"></mat-icon>
+	<div class="todo-list__content"> Tom </div>
+	</mat-card> 
+<mat-nav-list>
+	<mat-list-item *ngFor="let step of steps">
+		<a matLine href="javascript:void(0)">{{ step.name }}</a>
+	 <button class="approve" mat-raised-button color="primary">Approve</button>
+      <button mat-raised-button color="warn">Reject</button>
+	</mat-list-item>
+</mat-nav-list>

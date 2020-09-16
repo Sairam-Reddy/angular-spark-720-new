@@ -32,6 +32,17 @@
 
 	</div>
 
+  	<mat-card *ngIf="!selected" class="dashboard" [routerLink]="['dashboard']">
+		<mat-card-header>
+			<div mat-card-avatar class="dashboard-header-image"></div>
+			<mat-card-title> </mat-card-title>
+		</mat-card-header>
+		<img class="dashboard-image" mat-card-image src="https://raw.githubusercontent.com/Ramya-06/angular-spark720-homepage/master/src/content/images/home.png" alt="Photo of a Shiba Inu">
+		<mat-card-content class="dashboard__content">
+			Dashboard
+		</mat-card-content>
+	</mat-card>
+
 	<mat-card *ngIf="!selected" class="dashboard" [routerLink]="['dashboard']">
 		<mat-card-header>
 			<div mat-card-avatar class="dashboard-header-image"></div>

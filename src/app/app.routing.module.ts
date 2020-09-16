@@ -6,6 +6,7 @@ import { DraftWorkflowComponent } from "../common/workflow/draft/draft-workflow.
 import { HomeComponent } from "./home.component";
 import { UpdateWorkflowComponent } from "../common/workflow/update/update-workflow.component";
 import { ViewWorkflowComponent } from "../common/workflow/view/view-workflow.component";
+import { TaskListComponent } from "../common/workflow/task-list/task-list.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashboardComponent
+      },
+      {
+        path: "task-list",
+        component: TaskListComponent
       }
     ]
   }
