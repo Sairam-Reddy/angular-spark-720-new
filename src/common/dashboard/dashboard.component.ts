@@ -1,5 +1,5 @@
 import { Component, VERSION, OnInit } from "@angular/core";
-import { Chart } from 'chart.js';
+import { Chart } from "chart.js";
 
 @Component({
   selector: "dashboard-app",
@@ -8,6 +8,7 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
   doughNutChart: any;
+  barChart: any;
 
   ngOnInit() {
     this.doughNutChart = new Chart("doughNutCanvas", {
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             data: [55, 60],
-            backgroundColor: ["rgba(255, 0, 0, 1)", "rgba(255, 0, 0, 0.1)"],
+            backgroundColor: ["#579CEE", "#DF7C2F"],
             fill: false
           }
         ]
@@ -28,6 +29,57 @@ export class DashboardComponent implements OnInit {
         },
         tooltips: {
           enabled: true
+        }
+      }
+    });
+
+    var barChartData = {
+      labels: ["Susan", "Vijay", "Tom", "Sam"],
+      datasets: [
+        {
+          label: "Active",
+          backgroundColor: "#1267CD",
+          data: [20, 15, 20, 25]
+        },
+        {
+          label: "Over Due",
+          backgroundColor: "#CD3912",
+          data: [5, 5, 8, 3]
+        }
+      ]
+    };
+
+    this.barChart = new Chart("barCanvas", {
+      type: "bar",
+      data: barChartData,
+      options: {
+        title: {
+          display: true,
+          text: "Tasks - Over Due/Active"
+        },
+        tooltips: {
+          mode: "index",
+          intersect: false
+        },
+        responsive: true,
+        scales: {
+          yAxes: [
+            {
+              type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+              display: true,
+              position: "left",
+              id: "y-axis-1"
+            },
+            {
+              type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+              display: true,
+              position: "right",
+              id: "y-axis-2",
+              gridLines: {
+                drawOnChartArea: false
+              }
+            }
+          ]
         }
       }
     });
