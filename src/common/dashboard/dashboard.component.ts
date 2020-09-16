@@ -16,6 +16,7 @@ public selectedWF = "Review Workflow";
 
   doughNutChart: any;
   barChart: any;
+  pieChart: any;
 
   ngOnInit() {
     this.doughNutChart = new Chart("doughNutCanvas", {

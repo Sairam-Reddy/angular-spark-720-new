@@ -43,4 +43,17 @@
 		<view-workflow></view-workflow>
 	</mat-card>
 
+  <mat-card [hidden]="!pieChart" class="chart">
+		<mat-card-subtitle>
+			<mat-form-field appearance="fill">
+				<mat-select [(value)]="selected">
+					<mat-option *ngFor="let project of projects" [value]="project">
+						{{project}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card-subtitle>
+		<canvas id="doughNutCanvas"></canvas>
+	</mat-card>
+
 </div>
