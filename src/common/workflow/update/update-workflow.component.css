@@ -61,6 +61,66 @@ a {
 .properties {
   width: 100%;
 }
+
+.k-panelbar .k-content ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+.k-panelbar .k-content li
+{
+    text-align: right;
+    position: relative;
+    list-style: none;
+    padding: 5px 0 0;
+}
+
+.k-panelbar .k-content
+{
+    padding-bottom: 5px;
+}
+
+.k-panelbar .k-content li > span
+{
+    position: absolute;
+    display: block;
+    left: 10px;
+    top: 10px;
+}
+
+.k-panelbar .k-content li > .k-widget
+{
+    width: 50%;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: left;
+    position: static;
+}
+
+.k-panelbar .k-content .k-selected-color
+{
+    width: 100%;
+}
+
+.k-panelbar
+{
+    border-width: 0;
+}
+
+.k-panelbar,
+.k-panelbar .k-panel,
+.k-panelbar li.k-item
+{
+    background: transparent;
+}
+
+.k-panelbar .k-panel,
+.k-panelbar .k-content
+{
+    background: #f0f0f0;
+}
  
  
  

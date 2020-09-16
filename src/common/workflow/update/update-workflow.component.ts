@@ -74,6 +74,14 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       var connectiondata = workflow.connectionsData;
       createDiagram(data, connectiondata);
     });
+
+    kendo.jQuery(".colorPicker").kendoColorPicker({
+      value: "#ffffff",
+      buttons: false
+    });
+
+     kendo.jQuery("#canvasProperties").on("change", canvasPropertiesChange);
+
     function localDataSource(options) {
       var id = options.schema.model.id;
       var data = options.data;

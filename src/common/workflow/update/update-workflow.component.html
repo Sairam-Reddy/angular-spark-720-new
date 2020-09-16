@@ -28,7 +28,7 @@
 
 <mat-drawer-container class="container">
 	<mat-drawer mode="side" opened>
-		<mat-toolbar>
+		<mat-toolbar color="primary">
 			<span>Toobar</span>
 			<mat-divider></mat-divider>
 		</mat-toolbar>
@@ -69,7 +69,7 @@
 	<mat-drawer-content class="content">
 		<div id="diagram"></div>
 		<div class="properties">
-			<mat-toolbar>
+			<mat-toolbar color="primary">
 				<span>Properties</span>
 				<mat-divider></mat-divider>
 			</mat-toolbar>
@@ -80,20 +80,76 @@
 							Canvas Properties
 						</mat-panel-title>
 					</mat-expansion-panel-header>
+					<div id="canvasProperties">
+						<ul>
+							<li>
+								<span>Background Color:</span>
+								<input id="canvasBackgroundColorPicker" class="colorPicker" />
+              </li>
+							<li>
+								<span>Layout:</span>
+								<input id="canvasLayout" />
+              </li>
+						</ul>
+					</div>
 				</mat-expansion-panel>
+			</mat-accordion>
+			<mat-accordion>
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
 						<mat-panel-title>
 							Shape Properties
 						</mat-panel-title>
 					</mat-expansion-panel-header>
+					<ul>
+						<li>
+							<span>Background Color:</span>
+							<input id="shapeBackgroundColorPicker" class="colorPicker" />
+                            </li>
+						<li>
+							<span>Stroke Color:</span>
+							<input id="shapeStrokeColorPicker" class="colorPicker" />
+                            </li>
+						<li>
+							<span>Stroke Width:</span>
+							<input type="text" id="shapeStrokeWidth" class="numeric" />
+                            </li>
+						<li>
+							<span>Width:</span>
+							<input type="text" id="shapeWidth" class="numeric" />
+                            </li>
+						<li>
+							<span>Height:</span>
+							<input type="text" id="shapeHeight" class="numeric" />
+                            </li>
+						<li>
+							<span>Position X:</span>
+							<input type="text" id="shapePositionX" class="numeric" />
+                            </li>
+						<li>
+							<span>Position Y:</span>
+							<input type="text" id="shapePositionY" class="numeric" />
+                            </li>
+					</ul>
 				</mat-expansion-panel>
+			</mat-accordion>
+			<mat-accordion>
 				<mat-expansion-panel>
 					<mat-expansion-panel-header>
 						<mat-panel-title>
 							Connector Properties
 						</mat-panel-title>
 					</mat-expansion-panel-header>
+					<ul>
+						<li>
+							<span>Start Cap:</span>
+							<input id="connectionStartCap" />
+                            </li>
+						<li>
+							<span>End Cap:</span>
+							<input id="connectionEndCap" />
+                            </li>
+					</ul>
 				</mat-expansion-panel>
 			</mat-accordion>
 		</div>
