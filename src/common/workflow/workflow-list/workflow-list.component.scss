@@ -1,0 +1,18 @@
+.todo-list{
+  display: flex;
+      background-color: whitesmoke;
+  &__icon {
+    position: relative;
+    height: 40px;
+    width: 50px;
+  }
+  &__content {
+    position: relative;
+   top: 6px;
+    font-size: x-large;
+    font-weight: bold;
+  }
+  }
+  .approve {
+    margin: 12px;
+  }
