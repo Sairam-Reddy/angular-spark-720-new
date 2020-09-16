@@ -69,10 +69,13 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       console.log(users);
 
       this.worflowService.getWorkflows().subscribe(items => {
-        this.workflow = items[0];
+        this.workflow = items.find(
+          (x: Workflow) => x.name === "Review Workflow"
+        );
 
         var workflow = this.workflowToDiagramConverterService.getDiagramSource(
-          this.workflow, users
+          this.workflow,
+          users
         );
         var data = workflow.data;
         var connectiondata = workflow.connectionsData;
@@ -314,16 +317,16 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
             fields: {
               id: { type: "string", editable: false },
               text: { type: "string" },
-              recipients: {type: "string"},
-              stepDefinition: {type: "string"},
-              advancedFunction: {type: "string"},
-              targetDate: {type: "date"}
+              recipients: { type: "string" },
+              stepDefinition: { type: "string" },
+              advancedFunction: { type: "string" },
+              targetDate: { type: "date" }
               // fillColor: { type: "string" },
               // height: { type: "number" },
               // width: { type: "number" },
               // type: { type: "string" },
               // positionX: { type: "number" },
-              // positionY: { type: "number" }             
+              // positionY: { type: "number" }
             }
           }
         }
