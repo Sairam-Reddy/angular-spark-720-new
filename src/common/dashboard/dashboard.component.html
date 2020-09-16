@@ -30,7 +30,23 @@
 		<canvas id="barCanvas"></canvas>
 	</mat-card>
 
-	<mat-card [hidden]="!barChart" class="workflow">
+	<mat-card [hidden]="!pieChart" class="chart">
+		<mat-card-subtitle>
+			<mat-form-field appearance="fill">
+				<mat-select [(value)]="selectedUser">
+					<mat-option *ngFor="let user of users" [value]="user">
+						{{user}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card-subtitle>
+		<canvas id="pieCanvas"></canvas>
+	</mat-card>
+
+</div>
+
+<div class="charts">
+	<mat-card [hidden]="!barChart" class="chart">
 		<mat-card-subtitle>
 			<mat-form-field appearance="fill">
 				<mat-select [(value)]="selectedWF">
@@ -42,18 +58,4 @@
 		</mat-card-subtitle>
 		<view-workflow></view-workflow>
 	</mat-card>
-
-  <mat-card [hidden]="!pieChart" class="chart">
-		<mat-card-subtitle>
-			<mat-form-field appearance="fill">
-				<mat-select [(value)]="selected">
-					<mat-option *ngFor="let project of projects" [value]="project">
-						{{project}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</mat-card-subtitle>
-		<canvas id="doughNutCanvas"></canvas>
-	</mat-card>
-
 </div>

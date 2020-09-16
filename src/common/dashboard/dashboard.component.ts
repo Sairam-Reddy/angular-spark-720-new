@@ -14,6 +14,9 @@ public selected = "Project - A";
 public workflows = ["Review Workflow", "Product Life Cycle"];
 public selectedWF = "Review Workflow";
 
+public users = ["Sam", "Susan", "Tom"];
+public selectedUser = "Sam";
+
   doughNutChart: any;
   barChart: any;
   pieChart: any;
@@ -44,6 +47,35 @@ public selectedWF = "Review Workflow";
         },
       }
     });
+
+    this.pieChart = new Chart("pieCanvas", {
+      type: "pie",
+      data: {
+        labels: ["Reviews", "Shipments", "Assignements"],
+        datasets: [
+          {
+            data: [5, 12, 8],
+            backgroundColor: ["#0FD4F3", "#DE0FF3", "#9DF30F"],
+            fill: false
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: true
+        },
+        tooltips: {
+          enabled: true
+        },
+         title: {
+          display: true,
+          text: "Active Workflow Tasks"
+        },
+      }
+    });
+
+
+
 
     var barChartData = {
       labels: ["Susan", "Vijay", "Tom", "Sam"],
