@@ -7,16 +7,16 @@ import { Chart } from 'chart.js';
   styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
-  chart: any;
+  doughNutChart: any;
 
   ngOnInit() {
-    this.chart = new Chart("canvas", {
+    this.doughNutChart = new Chart("doughNutCanvas", {
       type: "doughnut",
       data: {
-        labels: ["Data1", "Data2"],
+        labels: ["Reviews", "Shipments"],
         datasets: [
           {
-            data: [55, 45],
+            data: [55, 60],
             backgroundColor: ["rgba(255, 0, 0, 1)", "rgba(255, 0, 0, 0.1)"],
             fill: false
           }
