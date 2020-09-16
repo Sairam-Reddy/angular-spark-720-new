@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: "update-workflow",
-        component: UpdateWorkflowComponent
+        component: WorkflowListComponent
       },
       {
         path: "view-workflow",
@@ -36,6 +36,10 @@ const routes: Routes = [
       {
         path: "task-list",
         component: TaskListComponent
+      },
+       {
+        path: "workflow-list",
+        component: WorkflowListComponent
       }
     ]
   }

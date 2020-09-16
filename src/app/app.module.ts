@@ -23,6 +23,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { DashboardModule } from "../common/dashboard/dashboard.module";
 import { HomeComponent } from "./home.component";
 import { TaskListModule } from "../common/workflow/task-list/task-list.module";
+import { WorkflowListModule } from "../common/workflow/workflow-list/workflow-list.module";
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { TaskListModule } from "../common/workflow/task-list/task-list.module";
     DashboardModule,
     UpdateWorkflowModule,
     ViewWorkflowModule,
-    TaskListModule
+    TaskListModule,
+    WorkflowListModule
   ],
   declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent]
