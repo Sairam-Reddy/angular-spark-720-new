@@ -80,7 +80,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       buttons: false
     });
 
-     kendo.jQuery("#canvasProperties").on("change", canvasPropertiesChange);
+    //  kendo.jQuery("#canvasProperties").on("change", canvasPropertiesChange);
 
     function localDataSource(options) {
       var id = options.schema.model.id;
