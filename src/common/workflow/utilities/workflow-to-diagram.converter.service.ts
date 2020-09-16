@@ -16,12 +16,12 @@ import { WorkflowStep } from "../models/workflow-step";
 export class WorkflowToDiagramConverterService {
   constructor(public afs: AngularFirestore) {}
 
-  getDiagramSource(workflow: Workflow) {
+  getDiagramSource(workflow: Workflow, users: Array<User>) {
     var data = [];
     var connectionsData = [];
 
     workflow.steps.forEach((x: WorkflowStep, index: number) => {
-      data.push(this.getworkflowStep(x, index));
+      data.push(this.getworkflowStep(x, index, users));
 
       if (x.acceptStep) {
         var acceptConnection = {
@@ -57,7 +57,7 @@ export class WorkflowToDiagramConverterService {
     return { data: data, connectionsData: connectionsData };
   }
 
-  getworkflowStep(wfStep: WorkflowStep, i: number) {
+  getworkflowStep(wfStep: WorkflowStep, i: number, users: Array<User>) {
     var step: any = {
       id: wfStep.id,
       text: wfStep.name,
@@ -66,6 +66,8 @@ export class WorkflowToDiagramConverterService {
       positionX: 300,
       positionY: i * 150
     };
+
+    step.recipients = [];
 
     if (wfStep.acceptStep && wfStep.rejectStep) {
       step.type = undefined;
@@ -77,6 +79,13 @@ export class WorkflowToDiagramConverterService {
     if (!wfStep.rejectStep) {
       step.type = "rectangle";
       step.fillColor = "#0088CC";
+    }
+
+    if (wfStep.recipients) {
+      wfStep.recipients.forEach((x: string) => {
+        const user: User = users.find((y: User) => x === y.id)[0];
+        step.recipients.push(user.name);
+      });
     }
 
     return step;

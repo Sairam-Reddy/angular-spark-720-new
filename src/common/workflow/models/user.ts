@@ -7,6 +7,7 @@ export interface User {
 disciplines: Array<Discipline>;
 email: string;
 name: string;
+id: string;
 organization: Organization;
 password: string;
 project: Project;

@@ -4,6 +4,7 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { WorkflowService } from "../services/workflow.service";
 import { WorkflowToDiagramConverterService } from "../utilities/workflow-to-diagram.converter.service";
 import { Workflow } from "../models/workflow";
+import { forkJoin } from "rxjs";
 
 declare var kendo: any;
 
@@ -64,15 +65,19 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.worflowService.getWorkflows().subscribe(items => {
-      this.workflow = items[0];
+    this.worflowService.getUsers().subscribe(users => {
+      console.log(users);
 
-      var workflow = this.workflowToDiagramConverterService.getDiagramSource(
-        this.workflow
-      );
-      var data = workflow.data;
-      var connectiondata = workflow.connectionsData;
-      createDiagram(data, connectiondata);
+      this.worflowService.getWorkflows().subscribe(items => {
+        this.workflow = items[0];
+
+        var workflow = this.workflowToDiagramConverterService.getDiagramSource(
+          this.workflow, users
+        );
+        var data = workflow.data;
+        var connectiondata = workflow.connectionsData;
+        createDiagram(data, connectiondata);
+      });
     });
 
     var Shape = kendo.dataviz.diagram.Shape,
@@ -387,18 +392,18 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
           //   template: "#= label#"
           // }
         },
-        dataBound: onDataBound,
-        select: function(e) {
-          if (e.selected.length) {
-            selected = e.selected;
-            var element = e.selected[0];
-            if (element instanceof Shape) {
-              updateShapeProperties(element.options);
-            } else {
-              updateConnectionProperties(element.options);
-            }
-          }
-        }
+        dataBound: onDataBound
+        // select: function(e) {
+        //   if (e.selected.length) {
+        //     selected = e.selected;
+        //     var element = e.selected[0];
+        //     if (element instanceof Shape) {
+        //       updateShapeProperties(element.options);
+        //     } else {
+        //       updateConnectionProperties(element.options);
+        //     }
+        //   }
+        // }
       });
 
       function updateShapeProperties(shape) {

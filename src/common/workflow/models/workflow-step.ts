@@ -6,7 +6,7 @@ export interface WorkflowStep {
   id: string;
   name: string;
   needsClaim: boolean;
-  recipients: Array<User>;
+  recipients: Array<string>;
   rejectStep: string;
   status: string;
   stepDefination: string;
