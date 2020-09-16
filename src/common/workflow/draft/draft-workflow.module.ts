@@ -13,6 +13,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { DraftWorkflowComponent } from "./draft-workflow.component";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatMenuModule,
     MatButtonModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   declarations: [DraftWorkflowComponent],
   exports: [DraftWorkflowComponent]
