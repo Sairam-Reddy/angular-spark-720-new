@@ -2,6 +2,10 @@
 	<span>Dashboards</span>
 </mat-toolbar>
 
-<div [hidden]="!doughNutChart">
-  <canvas id="doughNutCanvas"></canvas>
+<div class="charts">
+
+	<div [hidden]="!doughNutChart" class="chart">
+		<canvas id="doughNutCanvas"></canvas>
+	</div>
+
 </div>
