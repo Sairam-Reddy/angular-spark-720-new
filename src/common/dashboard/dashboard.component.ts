@@ -14,11 +14,11 @@ export class DashboardComponent implements OnInit {
     this.doughNutChart = new Chart("doughNutCanvas", {
       type: "doughnut",
       data: {
-        labels: ["Reviews", "Shipments"],
+        labels: ["Reviews", "Shipments", "Assignements"],
         datasets: [
           {
-            data: [55, 60],
-            backgroundColor: ["#579CEE", "#DF7C2F"],
+            data: [55, 60, 25],
+            backgroundColor: ["#579CEE", "#DF7C2F", "#0FF381"],
             fill: false
           }
         ]
@@ -29,7 +29,11 @@ export class DashboardComponent implements OnInit {
         },
         tooltips: {
           enabled: true
-        }
+        },
+         title: {
+          display: true,
+          text: "Workflow Objects"
+        },
       }
     });
 
