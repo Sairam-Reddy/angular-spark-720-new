@@ -33,8 +33,8 @@
 	<mat-card [hidden]="!barChart" class="workflow">
 		<mat-card-subtitle>
 			<mat-form-field appearance="fill">
-				<mat-select [(value)]="selected">
-					<mat-option *ngFor="let project of projects" [value]="project">
+				<mat-select [(value)]="selectedWF">
+					<mat-option *ngFor="let wf of workflows" [value]="wf">
 						{{project}}
 					</mat-option>
 				</mat-select>

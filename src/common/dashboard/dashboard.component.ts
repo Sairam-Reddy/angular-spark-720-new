@@ -11,6 +11,9 @@ export class DashboardComponent implements OnInit {
 public projects = ["Project - A", "Project - B"];
 public selected = "Project - A";
 
+public workflows = ["Review Workflow", "Product Life Cycle"];
+public selectedWF = "Review Workflow";
+
   doughNutChart: any;
   barChart: any;
 
