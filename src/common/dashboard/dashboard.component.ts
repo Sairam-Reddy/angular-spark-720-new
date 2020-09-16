@@ -55,7 +55,7 @@ public selectedUser = "Sam";
         datasets: [
           {
             data: [5, 12, 8],
-            backgroundColor: ["#0FD4F3", "#DE0FF3", "#9DF30F"],
+            backgroundColor: ["#0FF381", "#E2EF12", "#433AD5"],
             fill: false
           }
         ]
