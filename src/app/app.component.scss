@@ -54,6 +54,22 @@
    width: 360px;
     margin: 100px;
     cursor: pointer;
+    background-color: lightslategrey;
+      &__content {
+   text-align: center;
+  // color: yellowgreen;
+  color: mistyrose;
+    font-size: xx-large;
+    font-weight: bold;
+     font-family: ui-serif;
+     font-style: oblique;
+      }
+}
+
+.tasklist {   
+   width: 360px;
+    margin: 100px;
+    cursor: pointer;
     background-color: burlywood;
       &__content {
    text-align: center;
