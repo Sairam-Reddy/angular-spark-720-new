@@ -68,6 +68,7 @@ export class WorkflowToDiagramConverterService {
     };
 
     step.recipients = [];
+    step.advancedFunction = "";
 
     if (wfStep.acceptStep && wfStep.rejectStep) {
       step.type = undefined;
@@ -86,6 +87,14 @@ export class WorkflowToDiagramConverterService {
         const user: User = users.find((y: User) => x === y.name);
         step.recipients.push(user.name);
       });
+    }
+
+    if (wfStep.stepDefination) {
+      step.stepDefinition = wfStep.stepDefination;
+    }
+
+    if (wfStep.targetDate) {
+      step.targetDate = wfStep.targetDate;
     }
 
     return step;

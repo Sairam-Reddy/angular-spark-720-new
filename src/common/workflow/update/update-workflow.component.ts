@@ -315,12 +315,15 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
               id: { type: "string", editable: false },
               text: { type: "string" },
               recipients: {type: "string"},
-              fillColor: { type: "string" },
-              height: { type: "number" },
-              width: { type: "number" },
-              type: { type: "string" },
-              positionX: { type: "number" },
-              positionY: { type: "number" }             
+              stepDefinition: {type: "string"},
+              advancedFunction: {type: "string"},
+              targetDate: {type: "date"}
+              // fillColor: { type: "string" },
+              // height: { type: "number" },
+              // width: { type: "number" },
+              // type: { type: "string" },
+              // positionX: { type: "number" },
+              // positionY: { type: "number" }             
             }
           }
         }
@@ -568,7 +571,7 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
       var dataItem = options.dataItem;
 
       g.drawingElement.options.tooltip = {
-        content: dataItem.text,
+        content: dataItem.recipients,
         shared: true
       };
 

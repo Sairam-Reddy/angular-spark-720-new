@@ -20,15 +20,23 @@ export class ViewWorkflowComponent implements OnInit {
   public workflow: Workflow;
 
   ngOnInit() {
-    this.worflowService.getUsers().subscribe(items => {
-      console.log(items);
-    });
-    this.worflowService.getWorkflows().subscribe(items => {
-      this.workflow = items[0];
+    this.worflowService.getUsers().subscribe(users => {
+      console.log(users);
 
-      // this.drawWorkflowDiagram(
-      //   this.workflowToDiagramConverterService.getDiagramSource(this.workflow)
-      // );
+      this.worflowService.getWorkflows().subscribe(items => {
+        this.workflow = items[0];
+
+        var workflow = this.workflowToDiagramConverterService.getDiagramSource(
+          this.workflow,
+          users
+        );
+        this.drawWorkflowDiagram(
+          this.workflowToDiagramConverterService.getDiagramSource(
+            this.workflow,
+            users
+          )
+        );
+      });
     });
   }
 
