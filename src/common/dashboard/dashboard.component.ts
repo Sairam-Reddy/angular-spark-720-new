@@ -7,6 +7,10 @@ import { Chart } from "chart.js";
   styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
+
+public projects = ["Project - A", "Project - B"];
+public selected = "Project - A";
+
   doughNutChart: any;
   barChart: any;
 

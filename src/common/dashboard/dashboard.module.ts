@@ -6,9 +6,10 @@ import {MatCardModule} from '@angular/material/card';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard.routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  imports:      [ DashboardRoutingModule,BrowserModule, FormsModule, MatCardModule, MatToolbarModule ],
+  imports:      [ DashboardRoutingModule,BrowserModule, FormsModule, MatCardModule, MatToolbarModule, MatSelectModule ],
   declarations: [ DashboardComponent ]
 })
 export class DashboardModule{}
