@@ -314,12 +314,13 @@ export class UpdateWorkflowComponent implements OnInit, AfterViewInit {
             fields: {
               id: { type: "string", editable: false },
               text: { type: "string" },
+              recipients: {type: "string"},
               fillColor: { type: "string" },
               height: { type: "number" },
               width: { type: "number" },
               type: { type: "string" },
               positionX: { type: "number" },
-              positionY: { type: "number" }
+              positionY: { type: "number" }             
             }
           }
         }
