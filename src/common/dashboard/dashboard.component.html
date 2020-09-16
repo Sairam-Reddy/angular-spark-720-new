@@ -30,7 +30,7 @@
 		<canvas id="barCanvas"></canvas>
 	</mat-card>
 
-	<mat-card [hidden]="!barChart" class="chart">
+	<mat-card [hidden]="!barChart" class="workflow">
 		<mat-card-subtitle>
 			<mat-form-field appearance="fill">
 				<mat-select [(value)]="selected">
@@ -40,7 +40,7 @@
 				</mat-select>
 			</mat-form-field>
 		</mat-card-subtitle>
-		<canvas id="barCanvas"></canvas>
+		<view-workflow></view-workflow>
 	</mat-card>
 
 </div>

@@ -10,3 +10,9 @@
   padding: 20px;
   margin: 20px;
 }
+
+.workflow {
+   width: 100%;
+  height: 100%;
+  overflow: auto;
+}

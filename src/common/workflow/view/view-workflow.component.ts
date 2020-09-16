@@ -24,7 +24,9 @@ export class ViewWorkflowComponent implements OnInit {
       console.log(users);
 
       this.worflowService.getWorkflows().subscribe(items => {
-        this.workflow = items[0];
+        this.workflow = items.find(
+          (x: Workflow) => x.name === "Review Workflow"
+        );
 
         var workflow = this.workflowToDiagramConverterService.getDiagramSource(
           this.workflow,
